@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NO WAY OUT — Asymmetric Psychological Horror</title>
+<meta name="description" content="No Way Out — an asymmetric psychological horror and social deduction sandbox. The town has run this cycle before. It will run it again.">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/sections.css">
+</head>
+<body>
+
+<div class="grain"></div>
+<div id="sky-veil" aria-hidden="true"></div>
+<div class="vignette-fixed"></div>
+<div class="corner-frame tl"></div><div class="corner-frame tr"></div>
+<div class="corner-frame bl"></div><div class="corner-frame br"></div>
+
+<nav class="nav">
+  <div class="nav-mark">NO WAY OUT</div>
+  <div class="nav-links">
+    <a href="#thesis">Thesis</a>
+    <a href="#town">The Town</a>
+    <a href="#library">Library</a>
+    <a href="#yellow">The Threat</a>
+    <a href="#victory">Victory</a>
+    <a href="#intercept">Intercept</a>
+  </div>
+</nav>
+
+<!-- ============================================================ HERO ============================================================ -->
+<header class="hero" id="top">
+  <canvas class="hero-trees-far" data-forest="far" data-seed="7" aria-hidden="true"></canvas>
+  <canvas class="hero-trees-near" data-forest="near" data-seed="23" aria-hidden="true"></canvas>
+  <canvas class="hero-particles" data-embers data-count="20" data-color="230,183,60" data-speed="0.6" aria-hidden="true"></canvas>
+  <canvas class="atmos-canvas" data-rain data-count="90" data-phases="night,lockdown" aria-hidden="true"></canvas>
+
+  <div class="hero-glow" style="width:140px;height:200px;right:24%;bottom:14%;"></div>
+  <div class="hero-figure-wrap float-anim" data-figure style="right:23.5%;bottom:13%;width:34px;height:140px;"></div>
+
+  <div class="hero-content">
+    <div class="hero-kicker">PROJECT</div>
+    <h1 class="hero-title">NO WAY OUT</h1>
+    <div class="hero-sub">
+      <span class="ln"></span>
+      <span>Asymmetric Psychological Horror &middot; Social Deduction Sandbox</span>
+      <span class="ln r"></span>
+    </div>
+    <p class="hero-tagline">&ldquo;The town has run this cycle before. It will run it again.&rdquo;</p>
+  </div>
+
+  <div class="hero-scroll"><div class="line"></div><span>Descend</span></div>
+</header>
+
+<!-- ============================================================ THESIS ============================================================ -->
+<section class="section thesis" id="thesis">
+  <canvas class="atmos-canvas" data-dust data-count="12" data-color="180,170,155" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div class="kicker reveal">00 — What This Game Is</div>
+    <p class="thesis-q reveal reveal-delay-1" style="margin-top:34px">
+      Can a group extract truth from noise — while the noise is actively lying to them, while their
+      own senses are unreliable, and while the most trustworthy person among them may be the
+      <span class="hl">thing trying to kill them?</span>
+    </p>
+
+    <div class="thesis-grid">
+      <p class="body-text reveal reveal-delay-2">
+        Every other survival-horror game is a test of reflexes and resource management.
+        <b>No Way Out is a test of epistemology under social pressure.</b> The monsters, the talismans,
+        the long night &mdash; all of it is the surface. The real game happens one layer beneath, in the
+        question of what is real and who can be believed.
+      </p>
+      <div class="thesis-trinity reveal reveal-delay-3">
+        <div class="trinity-row"><span class="trinity-num">I.</span><span class="trinity-word">Survival</span><span class="body-text" style="font-size:15px">is the surface.</span></div>
+        <div class="trinity-row"><span class="trinity-num">II.</span><span class="trinity-word">Pattern</span><span class="body-text" style="font-size:15px">is the game.</span></div>
+        <div class="trinity-row"><span class="trinity-num">III.</span><span class="trinity-word y">Discernment</span><span class="body-text" style="font-size:15px">is the win condition.</span></div>
+      </div>
+    </div>
+
+    <div class="hairline reveal" style="margin-top:9vh"></div>
+    <p class="body-text reveal" style="margin-top:30px;font-style:italic;font-size:17px;max-width:900px">
+      The laws are constant. The board is never the same twice &mdash; like chess. There is always a
+      correct line of play. It simply hides inside the noise until someone strong enough sees it.
+    </p>
+  </div>
+</section>
+
+<!-- ============================================================ INTELLIGENT PEOPLE ============================================================ -->
+<section class="section thesis" id="intelligence" style="padding-top:0">
+  <canvas class="atmos-canvas" data-dust data-count="10" data-color="170,165,150" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div class="kicker reveal" style="--accent:var(--yellow)">00.1 — A Game of Intelligent People</div>
+    <p class="lead reveal reveal-delay-1" style="margin-top:30px;max-width:1100px">
+      Players are not merely <em>allowed</em> real-world knowledge &mdash; they are <b>expected</b> to use it.
+      Search engines, encyclopedias, LLMs, translation tools, cipher references. The long clues push
+      you <em>out</em> of the game to learn what something <b>is</b> &mdash; then back, to reason about
+      what it <b>means here.</b>
+    </p>
+
+    <div class="card reveal reveal-delay-2" style="margin-top:6vh;max-width:900px;--accent:var(--yellow)">
+      <div class="edge"></div>
+      <div class="eyebrow" style="color:var(--yellow)">0.2 — THE LLM AS A FRAUD-CHAIN VECTOR</div>
+      <p class="body-text" style="margin-top:14px">
+        The tool you trust carries its own poison. An LLM hallucinates <em>confidently</em> &mdash; a
+        beautifully structured answer that is subtly, fatally wrong. Mapped onto tonight's cycle it
+        becomes a <b>fraud chain</b> that feels like progress until the safehouse barriers silently fail.
+        <b>The game teaches the correct use of intelligence by punishing the incorrect use.</b>
+      </p>
+    </div>
+    <p class="body-text reveal reveal-delay-3" style="margin-top:5vh;font-style:italic;max-width:760px">
+      No wiki can do this for you. No model can do this for you. The community hands you tools &mdash;
+      the final move is always yours.
+    </p>
+  </div>
+</section>
+
+<!-- ============================================================ THREE-WAY WAR ============================================================ -->
+<section class="section war" id="war">
+  <canvas class="atmos-canvas" data-dust data-count="14" data-color="160,155,145" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div class="kicker reveal">02 — A Three-Way War</div>
+
+    <div class="war-diagram reveal reveal-delay-1 hide-mobile">
+      <svg class="war-svg"></svg>
+      <div class="war-node" style="left:50%;top:9%">
+        <div class="war-dot" style="background:var(--bone);box-shadow:0 0 18px rgba(232,225,211,.5)"></div>
+        <h3>The Players</h3><p>they want escape &middot; they want the truth</p>
+      </div>
+      <div class="war-node" style="left:88%;top:91%;text-align:right">
+        <div class="war-dot" style="background:var(--blood);box-shadow:0 0 22px rgba(184,57,42,.6)"></div>
+        <h3 style="color:var(--blood)">The Creatures</h3><p>they want containment &middot; they want to feed</p>
+      </div>
+      <div class="war-node" style="left:12%;top:91%">
+        <div class="war-dot" style="background:var(--moss-b);box-shadow:0 0 22px rgba(111,174,147,.6)"></div>
+        <h3 style="color:var(--moss-b)">The Town</h3><p>it wants freedom from the creatures</p>
+      </div>
+      <div class="war-node" style="left:50%;top:58%;width:300px">
+        <div class="eyebrow" style="color:var(--yellow)">AT THE HEART OF IT</div>
+        <h3 style="color:var(--yellow);font-size:clamp(18px,2vw,26px);margin-top:6px">The Man in Yellow</h3>
+        <p style="font-style:italic">the system's intelligence,<br>wearing a human face</p>
+      </div>
+    </div>
+
+    <div class="war-mobile show-mobile reveal reveal-delay-1">
+      <div class="war-mobile-node">
+        <div class="war-dot" style="background:var(--bone);box-shadow:0 0 18px rgba(232,225,211,.5)"></div>
+        <h3>The Players</h3><p>they want escape &middot; they want the truth</p>
+      </div>
+      <div class="war-mobile-line"></div>
+      <div class="war-mobile-node">
+        <div class="eyebrow" style="color:var(--yellow)">AT THE HEART OF IT</div>
+        <h3 style="color:var(--yellow);margin-top:6px">The Man in Yellow</h3>
+        <p style="font-style:italic">the system's intelligence, wearing a human face</p>
+      </div>
+      <div class="war-mobile-line"></div>
+      <div class="war-mobile-pair">
+        <div class="war-mobile-node">
+          <div class="war-dot" style="background:var(--moss-b);box-shadow:0 0 22px rgba(111,174,147,.6)"></div>
+          <h3 style="color:var(--moss-b)">The Town</h3><p>freedom from the creatures</p>
+        </div>
+        <div class="war-mobile-node">
+          <div class="war-dot" style="background:var(--blood);box-shadow:0 0 22px rgba(184,57,42,.6)"></div>
+          <h3 style="color:var(--blood)">The Creatures</h3><p>containment &middot; to feed</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ THE TOWN ============================================================ -->
+<section class="section town" id="town">
+  <canvas class="hero-trees-far" data-forest="thin" data-seed="51" style="opacity:.35;height:30%;bottom:auto;top:0" aria-hidden="true"></canvas>
+  <canvas class="town-leaves" data-leaves data-count="16" data-color="111,174,147" aria-hidden="true"></canvas>
+  <div class="wrap" style="position:relative;z-index:5">
+    <div class="kicker reveal" style="--accent:var(--moss-b)">02.1 — The Town Is a Trapped Ally</div>
+    <p class="lead reveal reveal-delay-1" style="margin-top:30px;max-width:980px">
+      The town is not a neutral map. It is a fellow prisoner &mdash; trapped longer than any survivor,
+      desperate for the same freedom. It cannot speak. It can only <em>reduce friction</em> when you
+      move toward the correct pattern.
+    </p>
+    <h2 class="town-headline reveal reveal-delay-2">
+      The town never grants <span class="safe">safety.</span><br>It grants <span class="assist">assistance.</span>
+    </h2>
+
+    <div class="town-cards">
+      <div class="card reveal reveal-delay-2" style="--accent:var(--moss-b)">
+        <div class="edge"></div>
+        <div class="eyebrow" style="color:var(--moss-b)">WHEN YOU MOVE TOWARD TRUTH</div>
+        <p class="body-text" style="margin-top:12px">A stuck door becomes openable. A creature looks away at the right moment. The fog thins along one path. Not rescue &mdash; a lowering of resistance.</p>
+      </div>
+      <div class="card reveal reveal-delay-3" style="--accent:var(--ash2)">
+        <div class="edge"></div>
+        <div class="eyebrow">WHEN YOU MOVE TOWARD ERROR</div>
+        <p class="body-text" style="margin-top:12px">Not punishment &mdash; <em>withdrawal.</em> The signs simply stop. The town goes neutral and quiet, and the world returns to full indifference. The silence <em>is</em> the warning.</p>
+      </div>
+    </div>
+    <p class="body-text reveal" style="margin-top:6vh;max-width:900px">
+      <b style="color:var(--moss-b)">Assistance is individual-origin.</b> Strong players receive signs; the weak receive silence.
+      Stand beside someone strong, and you witness what they witness &mdash; which is why <em>who you keep close</em> is itself a mechanic.
+    </p>
+  </div>
+</section>
+
+<!-- ============================================================ EPISTEMIC LIBRARY ============================================================ -->
+<section class="section library" id="library">
+  <canvas class="atmos-canvas" data-dust data-count="18" data-color="200,195,185" aria-hidden="true"></canvas>
+  <canvas class="atmos-canvas" data-structures="huts" data-seed="14" data-count="30" style="z-index:2;opacity:1" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div class="kicker reveal" style="--accent:var(--yellow)">03 — The Epistemic Library</div>
+    <p class="lead reveal reveal-delay-1" style="margin-top:28px;max-width:1100px">
+      Long clues are built from real history, myth, and cipher. You leave the game to learn what a
+      thing <b>is</b> &mdash; then return to reason what it <b>means tonight.</b>
+    </p>
+
+    <div class="lib-grid">
+      <div class="lib-card reveal reveal-delay-1">
+        <div class="idx">NWO&middot;LB / 01</div>
+        <h4>Djinn</h4><div class="tag">ISLAMIC LORE</div>
+        <p class="desc">Beings of <em>&ldquo;smokeless fire.&rdquo;</em></p>
+        <div class="maps"><b>MAPS TO →</b> a creature that wears your voice. A warning of mimicry.</div>
+      </div>
+      <div class="lib-card reveal reveal-delay-2">
+        <div class="idx">NWO&middot;LB / 02</div>
+        <h4>RMS Titanic</h4><div class="tag">HISTORICAL ANOMALY</div>
+        <p class="desc">Ice warnings, filed and ignored.</p>
+        <div class="maps"><b>MAPS TO →</b> hubris, and a safehouse about to fail. Not the sea.</div>
+      </div>
+      <div class="lib-card reveal reveal-delay-3">
+        <div class="idx">NWO&middot;LB / 03</div>
+        <h4>Roanoke</h4><div class="tag">HISTORICAL ANOMALY</div>
+        <p class="desc">A colony gone. One word carved.</p>
+        <div class="maps"><b>MAPS TO →</b> disappearance without a body left behind.</div>
+      </div>
+      <div class="lib-card reveal reveal-delay-4">
+        <div class="idx">NWO&middot;LB / 04</div>
+        <h4>Voynich</h4><div class="tag">CIPHER</div>
+        <p class="desc">A book no one alive can read.</p>
+        <div class="maps"><b>MAPS TO →</b> a clue that resists the wiki and the model alike.</div>
+      </div>
+      <div class="lib-card reveal reveal-delay-4" style="border-color:var(--yellow-deep)">
+        <div class="idx">NWO&middot;LB / 05</div>
+        <h4>Fibonacci</h4><div class="tag">SEQUENCE &middot; 1 1 2 3 5</div>
+        <p class="desc">Solved once. Permanent.</p>
+        <div class="maps"><b>MAPS TO →</b> which trees? which hours? Fluid every night.</div>
+      </div>
+    </div>
+
+    <div class="card reveal" style="margin-top:5vh;display:flex;gap:30px;align-items:center;flex-wrap:wrap;--accent:var(--yellow)">
+      <div class="edge"></div>
+      <div style="font-family:'Gloock';font-size:22px;color:var(--yellow);white-space:nowrap">The key is real.<br>The mapping is fluid.</div>
+      <div style="width:1px;height:54px;background:var(--line2)" class="hide-mobile"></div>
+      <p class="body-text" style="flex:1;min-width:280px">
+        Knowing it is Fibonacci never solves the game &mdash; it hands you a tool. The lock changes every cycle.
+        <em style="color:var(--ash)">Googleable in seconds; the meaning takes an hour.</em>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ DREAM GAUNTLET ============================================================ -->
+<section class="section dream" id="dream">
+  <canvas data-embers data-count="14" data-color="139,107,196" data-speed="0.4" style="position:absolute;inset:0;width:100%;height:100%;z-index:1" aria-hidden="true"></canvas>
+  <div class="wrap" style="position:relative;z-index:5">
+    <div class="kicker reveal" style="--accent:var(--vision-b)">04 — Vision States &amp; The Dream Gauntlet</div>
+    <p class="lead reveal reveal-delay-1" style="margin-top:28px;max-width:980px">
+      Dreams are the <b style="color:var(--vision-b)">bootstrap</b> &mdash; the town's only channel for
+      the first signal. To receive it you must <em>risk</em> sleep, fainting in sudden daylight, or
+      hallucinogenic flora. The dream is not safe, and it is not honest by default.
+    </p>
+
+    <div class="dream-grid">
+      <div class="flexcol" style="display:flex;flex-direction:column;gap:20px">
+        <div class="card reveal reveal-delay-2" style="--accent:var(--vision-b)">
+          <div class="edge"></div>
+          <div class="eyebrow" style="color:var(--vision-b)">SYMBOLIC VARIABLES</div>
+          <div class="dream-symbols">
+            <span class="sym">a Snake</span><span style="color:var(--ash)">/</span>
+            <span class="sym">a Lion</span><span style="color:var(--ash)">/</span>
+            <span class="sym">a Horse</span><span style="color:var(--ash)">/</span>
+            <span class="num">835</span>
+          </div>
+          <p class="body-text" style="margin-top:14px">Research them in the waking world. Their meaning belongs to <em>this</em> cycle &mdash; never the last.</p>
+        </div>
+        <div class="card reveal reveal-delay-3" style="--accent:var(--blood)">
+          <div class="edge"></div>
+          <div class="eyebrow" style="color:var(--blood)">ENTITY-HACKED SLEEP</div>
+          <p class="body-text" style="margin-top:12px">Sleep unprotected and an entity slips inside the bootstrap itself &mdash; whispering false numbers, beginning a fraud chain from the very first signal you ever receive.</p>
+        </div>
+      </div>
+      <div class="card reveal reveal-delay-2" style="--accent:var(--blood);border-color:rgba(184,57,42,.35)">
+        <div class="edge"></div>
+        <div class="eyebrow" style="color:var(--blood)">VISCERAL TRANSLATION</div>
+        <p class="body-text" style="margin-top:12px;color:var(--bone)">Harm taken in the dream is <em>not</em> contained by it.</p>
+        <p class="body-text" style="margin-top:10px">A slash from a creature in the vision opens as a real laceration on the sleeping body &mdash; in real time. The team watches a wound appear from nothing.</p>
+        <div class="hairline" style="margin:20px 0"></div>
+        <div class="eyebrow" style="color:var(--blood)">SANDBOX TRIAGE</div>
+        <p class="body-text" style="margin-top:12px">No auto-heal, no lockout. They burn their last real medicine on an invisible wound while the dreamer convulses in the dirt &mdash;</p>
+        <p class="pull" style="margin-top:14px;font-size:18px;color:var(--vision-b)">proof the dream was real. Never proof the clue was true.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ IMPORTANT CHARACTER RULE ============================================================ -->
+<section class="section thesis" id="alignment">
+  <canvas class="atmos-canvas" data-dust data-count="12" data-color="150,140,175" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div class="kicker reveal">04.3 — The Important Character Rule</div>
+    <h2 class="reveal reveal-delay-1" style="font-size:clamp(30px,4.6vw,52px);margin-top:30px;max-width:1100px">
+      Inside the dream, survival is not skill.<br>It is <span style="color:var(--vision-b)">alignment.</span>
+    </h2>
+    <div class="cost-grid" style="grid-template-columns:1fr 1fr;margin-top:7vh">
+      <div class="card reveal reveal-delay-2" style="--accent:var(--moss-b)">
+        <div class="edge"></div>
+        <div class="eyebrow" style="color:var(--moss-b)">STRONG &middot; ALIGNED</div>
+        <h4 style="font-family:'Gloock';font-size:26px;color:var(--bone);margin:14px 0;font-weight:400">The town is a failsafe.</h4>
+        <p class="body-text">Recognized as aligned, you cannot die here. The instant before fatal harm, the town <em>snaps you awake</em> with a gasp. The minor wounds remain &mdash; carried back as proof.</p>
+      </div>
+      <div class="card reveal reveal-delay-3" style="--accent:var(--blood);background:linear-gradient(160deg,#1a1013,#0c0a0c)">
+        <div class="edge"></div>
+        <div class="eyebrow" style="color:var(--blood)">ARROGANT &middot; UNALIGNED</div>
+        <h4 style="font-family:'Gloock';font-size:26px;color:var(--blood);margin:14px 0;font-weight:400">The town does not come.</h4>
+        <p class="body-text">Force a vision you have not earned and no hand reaches in. Your body bleeds out and <em>dies</em> &mdash; while your team spends its last medicine trying to save someone the town already judged.</p>
+      </div>
+    </div>
+    <p class="pull reveal" style="margin-top:6vh;font-size:20px;text-align:center;color:var(--ash)">The cruelest death in the game is reserved for the confident.</p>
+  </div>
+</section>
+
+<!-- ============================================================ COST / STRONG PLAYER ============================================================ -->
+<section class="section cost" id="cost">
+  <canvas class="atmos-canvas" data-embers data-count="6" data-color="184,57,42" data-speed="0.25" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div class="kicker reveal" style="--accent:var(--blood)">06 — The Strong Player &amp; The Cost</div>
+    <p class="lead reveal reveal-delay-1" style="margin-top:28px;max-width:1100px">
+      Strength is <em>discernment,</em> not authority. The town gave them sight. The entities turn that
+      sight into a wound.
+    </p>
+    <div class="cost-grid">
+      <div class="cost-card reveal reveal-delay-1"><div class="n">01</div><h4>The Trusted Fool</h4>
+        <p class="body-text" style="font-size:15px">Your closest ally believes a hallucination with their whole heart &mdash; and walks into the trees alone, at dusk, begging you to follow.</p></div>
+      <div class="cost-card reveal reveal-delay-2" style="border-color:rgba(184,57,42,.35)"><div class="n">02</div><h4>The Turned Ally</h4>
+        <p class="body-text" style="font-size:15px">Genuine all session. Found at night. Turned at <span class="mono">02:00.</span> They hand you the final piece at <span class="mono">05:00</span> &mdash; and it feels real, because the trust is.</p></div>
+      <div class="cost-card reveal reveal-delay-3"><div class="n">03</div><h4>The Sacrifice Trap</h4>
+        <p class="body-text" style="font-size:15px">The town signals <span class="mono" style="color:var(--moss-b)">GO.</span> The correct line is clear. But walking it means exposing the one person standing beside you.</p></div>
+    </div>
+    <p class="pull reveal" style="margin-top:7vh;font-size:clamp(20px,2.6vw,28px);text-align:center">Clarity is the wound. You see &mdash; <span style="color:var(--blood);font-style:normal">therefore they take.</span></p>
+  </div>
+</section>
+
+<!-- ============================================================ MAN IN YELLOW — signature section ============================================================ -->
+<section class="section mny" id="yellow">
+  <canvas class="mny-fog" data-embers data-count="10" data-color="230,183,60" data-speed="0.3" aria-hidden="true"></canvas>
+  <div class="mny-figure-stage">
+    <div class="float-anim" data-figure="" aria-hidden="true" style="width:100%;height:100%"></div>
+  </div>
+
+  <div class="mny-content wrap" style="padding-left:0;padding-right:0">
+    <div class="kicker reveal" style="--accent:var(--yellow)">07 — The Threat Architecture</div>
+    <h2 class="mny-title reveal reveal-delay-1">The Man<br>in Yellow</h2>
+    <p class="lead reveal reveal-delay-2" style="margin-top:26px;max-width:640px">
+      He is not a monster. He is a <b style="color:var(--bone)">person</b> &mdash; beautiful, charismatic,
+      magnetic. The figure everyone wants beside them. And he is already inside the wall.
+    </p>
+
+    <div class="mny-rows reveal reveal-delay-3">
+      <div class="mny-row"><span class="lab">Countermeasure</span><p class="body-text" style="font-size:15px">He does not spawn. He arrives the moment a strong player is <em>recognized</em> &mdash; summoned by your own strength.</p></div>
+      <div class="mny-row"><span class="lab">Fully Briefed</span><p class="body-text" style="font-size:15px">He felt the town respond, so he knows what you found. He speaks your language and holds your next piece.</p></div>
+      <div class="mny-row"><span class="lab">The One Tell</span><p class="body-text" style="font-size:15px">The town never helps him. Alone in a room, it goes <em>silent</em> &mdash; not hostile, just withdrawn. Easy to miss. Impossible to act on without proof.</p></div>
+    </div>
+
+    <div class="mny-trap reveal reveal-delay-4">
+      <div class="eyebrow" style="color:var(--yellow)">THE FINAL TRAP</div>
+      <p class="body-text" style="margin-top:8px;font-size:15px">Act on instinct and the team brands you paranoid and exiles you. Wait for proof and the window closes. He neutralizes the strongest player without firing a shot.</p>
+    </div>
+
+    <div class="card reveal" style="margin-top:5vh;max-width:680px;border-color:rgba(184,57,42,.4)">
+      <div class="edge" style="--accent:var(--blood)"></div>
+      <div class="eyebrow" style="color:var(--blood)">THE NIGHT CREATURES</div>
+      <p class="body-text" style="margin-top:10px;font-size:14.5px">Unchanged from canon. Nocturnal, talisman-gated, merciless. They wear your friends' voices at the door &mdash; and the despair they manufacture each night is the bait that makes <em style="color:var(--yellow)">him</em> irresistible by dawn.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ 24-HOUR LOOP ============================================================ -->
+<section class="section loop" id="loop">
+  <canvas class="atmos-canvas" data-dust data-count="10" data-color="140,135,125" aria-hidden="true"></canvas>
+  <canvas class="atmos-canvas" data-rain data-count="70" data-phases="lockdown" style="z-index:2" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div class="kicker reveal">08 — The 24-Hour Loop</div>
+    <div class="loop-wrap">
+      <div class="loop-clock reveal reveal-delay-1"></div>
+      <div class="loop-list reveal reveal-delay-2">
+        <div class="loop-item" data-phase="dawn" style="--accent:#4a8670"><span class="time">06:00–09:00 DAWN</span><span class="desc">Barriers drop. Casualty count. The first signal leaks through dawn dreams.</span></div>
+        <div class="loop-item" data-phase="scouting" style="--accent:#7b7464"><span class="time">09:00–15:00 SCOUTING</span><span class="desc">Disperse, form factions, trace coordinates. The safest window for the trees.</span></div>
+        <div class="loop-item" data-phase="race" style="--accent:#caa033"><span class="time">15:00–18:00 RACE</span><span class="desc">Cross-reference clues against lore against a hard deadline.</span></div>
+        <div class="loop-item" data-phase="lockdown" style="--accent:#5a5240"><span class="time">18:00–20:00 LOCKDOWN</span><span class="desc">One fortress, or many safehouses? Trust breaks along lines of suspicion.</span></div>
+        <div class="loop-item" data-phase="night" style="--accent:#8c2118"><span class="time">20:00–06:00 NIGHT</span><span class="desc">Voices at the door. Distortion within. The desperation factory runs until dawn.</span></div>
+      </div>
+    </div>
+    <p class="pull reveal" style="margin-top:7vh;text-align:center;font-size:18px;color:var(--ash)">Morning discipline buys afternoon options &mdash; which buy night survival.</p>
+  </div>
+</section>
+
+<!-- ============================================================ DIFFICULTY ============================================================ -->
+<section class="section diff" id="difficulty" style="position:relative; overflow:hidden;">
+  <div style="position:absolute; inset:0; z-index:1; pointer-events:none; mask-image:linear-gradient(to bottom, transparent 0%, black 20%); -webkit-mask-image:linear-gradient(to bottom, transparent 0%, black 20%);">
+    <img src="assets/creature.png" alt="Creatures in the fog" style="width:100%; height:100%; object-fit:cover; object-position:bottom; filter: contrast(1.2) brightness(0.9); opacity: 0.85;">
+  </div>
+  <div style="position:absolute; inset:0; z-index:2; background: linear-gradient(to bottom, rgba(10,10,12,0.8) 0%, rgba(10,10,12,0.4) 40%, rgba(10,10,12,0.7) 100%); pointer-events:none;"></div>
+  <canvas class="atmos-canvas" data-dust data-count="10" data-color="165,160,150" style="z-index:3" aria-hidden="true"></canvas>
+  <div class="wrap" style="position:relative; z-index:5;">
+    <div class="kicker reveal">10 — Difficulty Is Epistemic, Not Numerical</div>
+    <p class="lead reveal reveal-delay-1" style="margin-top:28px;max-width:1100px">
+      The monsters hit the same in every mode. What scales is <b>how much the game tells you what is
+      true</b> &mdash; the volume of scaffolding: labels, confirmations, telegraphed fraud, visible tells.
+    </p>
+    <div class="diff-grid">
+      <div class="diff-card reveal reveal-delay-1" style="--accent:var(--moss-b)">
+        <div class="eyebrow" style="color:var(--moss-b)">EASY · I</div>
+        <h4>The Guided Cycle</h4>
+        <div class="lines">clues are labelled<br>fraud is rare, telegraphed<br>the town is loud<br>wrong lookups are harmless</div>
+      </div>
+      <div class="diff-card reveal reveal-delay-2" style="--accent:var(--yellow)">
+        <div class="eyebrow" style="color:var(--yellow)">MEDIUM · II</div>
+        <h4>The Contested Cycle</h4>
+        <div class="lines">labels removed<br>fraud is live &amp; balanced<br>the signs are subtle<br>a bad lookup costs time</div>
+      </div>
+      <div class="diff-card reveal reveal-delay-3" style="--accent:var(--blood);background:linear-gradient(170deg,#17100f,#0a0809)">
+        <div class="eyebrow" style="color:var(--blood)">HARD / REAL · III</div>
+        <h4 style="color:var(--blood)">The Unmarked Cycle</h4>
+        <div class="lines">nothing is labelled<br>fraud is maximal &amp; mostly true<br>the town barely whispers<br>uncritical tools are fatal</div>
+      </div>
+    </div>
+    <p class="body-text reveal" style="margin-top:6vh;text-align:center;font-style:italic;color:var(--ash)">
+      It is called <span style="color:var(--blood);font-family:'Label';letter-spacing:.18em;font-style:normal;font-size:13px">REAL</span> because reality provides no labels, no confirmations, and no honest sources.
+    </p>
+  </div>
+</section>
+
+<!-- ============================================================ VICTORY ============================================================ -->
+<section class="section victory" id="victory">
+  <canvas class="atmos-canvas" data-embers data-count="8" data-color="184,57,42" data-speed="0.3" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div class="kicker reveal" style="--accent:var(--blood)">11 — Victory Conditions</div>
+    <div class="victory-grid">
+      <div class="card reveal reveal-delay-1" style="--accent:var(--bone)">
+        <div class="edge"></div>
+        <div class="eyebrow">I &middot; THE EXODUS</div>
+        <p class="body-text" style="margin-top:12px">Solve the structural map. Sacrifice the ancient artifacts at the radio tower and lighthouse. Synchronize the escape across the faraway trees. Fail mid-execution and the team is wiped instantly.</p>
+      </div>
+      <div class="card reveal reveal-delay-2" style="--accent:var(--blood)">
+        <div class="edge"></div>
+        <div class="eyebrow" style="color:var(--blood)">II &middot; THE PURGE</div>
+        <p class="body-text" style="margin-top:12px">Stop running. Track the creatures to their resting chambers, harvest their toxins into weapons, and raid the nest to burn the predatory code out of the cycle entirely.</p>
+      </div>
+    </div>
+    <div class="victory-turn reveal">
+      <div class="eyebrow" style="color:var(--blood)">THE TURN</div>
+      <p class="body-text" style="margin-top:14px;font-size:18px">
+        But the Purge is navigated by <b style="color:var(--vision-b)">mushroom-induced visions</b> &mdash;
+        the most compromised sight in the game &mdash; and the <b style="color:var(--yellow)">Man in Yellow
+        holds a key role inside the raid.</b> You march into the dark on a hallucination, with the
+        system's greatest weapon at your shoulder, calling it victory.
+      </p>
+    </div>
+    <p class="victory-pull reveal">In a game where the noise is always lying,<br>how do you know that <span class="y">winning</span> is not the last fraud chain?</p>
+  </div>
+</section>
+
+<!-- ============================================================ INTERCEPT — discussion / found audio ============================================================ -->
+<section class="section intercept" id="intercept" data-intercept-player>
+  <div class="wrap">
+    <div class="intercept-tag reveal"><span class="dot"></span> UNAUTHORIZED ANALYSIS &middot; SOURCE UNKNOWN</div>
+    <h2 class="reveal reveal-delay-1" style="font-size:clamp(28px,4vw,46px);margin-top:24px;max-width:980px">
+      The dossier has already leaked.<br>Someone is dissecting it.
+    </h2>
+    <p class="lead reveal reveal-delay-2" style="margin-top:20px;max-width:880px">
+      A 38-minute recording surfaced alongside the design document &mdash; two unidentified analysts
+      working through the full system, cycle by cycle. Unclear who recorded it, or why. The transcript
+      is reproduced below.
+    </p>
+
+    <div class="intercept-head">
+      <div class="intercept-quotes reveal reveal-delay-2">
+        <div class="iq" data-quote-jump="119.8">
+          <p>&ldquo;Your best friend in the room with you might actually be a paid actor trying to steer you into a trap. Which is such a wild concept.&rdquo;</p>
+          <div class="iq-t">01:59</div>
+        </div>
+        <div class="iq" data-quote-jump="1373.4">
+          <p>&ldquo;It's exactly like following your GPS directly into a lake because you trusted the machine's voice over your own eyes.&rdquo;</p>
+          <div class="iq-t">22:53</div>
+        </div>
+        <div class="iq" data-quote-jump="1651.6">
+          <p>&ldquo;The strong player is effectively a human lie detector &mdash; reading which clues are genuine, which players are genuine.&rdquo;</p>
+          <div class="iq-t">27:31</div>
+        </div>
+        <div class="iq" data-quote-jump="2259.9">
+          <p>&ldquo;In a game where the noise is always lying &mdash; how can you ever be certain that winning isn't just the final inescapable trap?&rdquo;</p>
+          <div class="iq-t">37:39</div>
+        </div>
+      </div>
+
+      <div class="player reveal reveal-delay-3">
+        <div class="player-top">
+          <div>
+            <div class="player-title">Intercepted Transmission</div>
+            <div class="player-sub">38:30 &middot; two speakers &middot; unverified</div>
+          </div>
+        </div>
+        <div class="player-controls">
+          <button class="play-btn" data-play aria-label="Play or pause"></button>
+          <div class="scrub-wrap">
+            <div class="waveform" data-waveform>
+              <canvas></canvas>
+              <div class="waveform-progress" data-progress></div>
+            </div>
+            <div class="time-row">
+              <span data-elapsed>0:00</span>
+              <span data-remain>-38:30</span>
+            </div>
+          </div>
+        </div>
+        <div class="chapters">
+          <button class="chapter-pill" data-chapter data-t="0">Open</button>
+          <button class="chapter-pill" data-chapter data-t="142.45">Asymmetric Reality</button>
+          <button class="chapter-pill" data-chapter data-t="301.82">Pilgrimage of Doubt</button>
+          <button class="chapter-pill" data-chapter data-t="570.15">Economy of the Bet</button>
+          <button class="chapter-pill" data-chapter data-t="1006.64">The Fluid Pattern</button>
+          <button class="chapter-pill" data-chapter data-t="1212.37">The Fraud Chain</button>
+          <button class="chapter-pill" data-chapter data-t="1443.47">Two-Front War</button>
+          <button class="chapter-pill" data-chapter data-t="1651.57">The Strong Player</button>
+          <button class="chapter-pill" data-chapter data-t="1926.66">Is Winning the Trap?</button>
+        </div>
+        <audio data-audio preload="none">
+          <source data-src-webm="assets/audio/discussion.webm" type="audio/webm; codecs=opus">
+          <source data-src-mp4="assets/audio/discussion.m4a" type="audio/mp4">
+        </audio>
+      </div>
+    </div>
+
+    <div class="transcript-panel reveal" data-transcript></div>
+
+    <p class="intercept-note reveal">
+      Transcript timing is reconstructed from speech pacing, not extracted captioning &mdash; treat
+      timestamps as approximate. Audio plays in-browser; nothing is sent anywhere.
+    </p>
+  </div>
+</section>
+
+<!-- ============================================================ CODA ============================================================ -->
+<section class="coda" id="coda">
+  <canvas class="coda-trees" data-forest="far" data-seed="91" aria-hidden="true"></canvas>
+  <canvas data-embers data-count="16" data-color="230,183,60" data-speed="0.5" style="position:absolute;inset:0;width:100%;height:100%;z-index:3" aria-hidden="true"></canvas>
+  <canvas class="atmos-canvas" data-rain data-count="85" data-phases="night,lockdown" style="z-index:4" aria-hidden="true"></canvas>
+  <div class="hero-figure-wrap float-anim" data-figure style="left:50%;bottom:24%;width:22px;height:96px;opacity:.85" aria-hidden="true"></div>
+
+  <div class="coda-content">
+    <div class="kicker reveal" style="justify-content:center">Coda — The Whole Design</div>
+    <div class="coda-table reveal reveal-delay-1">
+      <div class="coda-row"><span class="k" style="color:var(--moss-b)">THE TOWN</span><span class="v">a trapped ally who can only whisper</span></div>
+      <div class="coda-row"><span class="k">THE PATTERN</span><span class="v">fluid as chess, always solvable, never the same</span></div>
+      <div class="coda-row"><span class="k">THE STRONG PLAYER</span><span class="v">discernment as power, clarity as a wound</span></div>
+      <div class="coda-row"><span class="k" style="color:var(--blood)">THE COST</span><span class="v">the people you love, taken because you can see</span></div>
+      <div class="coda-row"><span class="k" style="color:var(--yellow)">THE MAN IN YELLOW</span><span class="v">the thing you will trust, summoned by your own strength</span></div>
+    </div>
+    <p class="coda-question reveal reveal-delay-2">Can a group still find the truth anyway?</p>
+    <div class="coda-cta reveal reveal-delay-3">
+      <a href="#top" class="btn">Begin the Cycle</a>
+      <a href="#" class="btn ghost">Read the Full Dossier</a>
+    </div>
+  </div>
+
+  <footer>
+    <span>Project No Way Out &middot; Core Design Document &middot; v2.2.0</span>
+    <span>Design Architect — Jodl &middot; <span style="color:var(--blood)">Strictly Confidential</span></span>
+  </footer>
+</section>
+
+<script src="assets/forest.js"></script>
+<script src="assets/structures.js"></script>
+<script src="assets/atmosphere.js"></script>
+<script src="assets/candle.js"></script>
+<script src="assets/main.js"></script>
+<script src="assets/intercept.js"></script>
+</body>
+</html>
