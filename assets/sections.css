@@ -17,8 +17,11 @@
 @media(max-width:760px){.nav-links{display:none}}
 
 /* ---------- HERO ---------- */
-.hero{
-  height:100svh;min-height:680px;position:relative;z-index:2;
+/* .hero is a tall scroll track; .hero-sticky pins the scene for the duration of
+   the wordmark stretch/compress choreography, then releases to scroll away. */
+.hero{position:relative;z-index:2;height:190vh}
+.hero-sticky{
+  position:sticky;top:0;height:100svh;min-height:680px;overflow:hidden;
   display:flex;flex-direction:column;justify-content:center;
   /* Exact "night" key art (page_01): cool blue-grey top glow → indigo mids → cool vignette */
   background:radial-gradient(130% 85% at 50% 5%,
@@ -74,7 +77,7 @@
 .hero-scroll span{font-family:'Label';font-size:10px;letter-spacing:.3em;color:var(--ash);text-transform:uppercase}
 
 @media(max-width:760px){
-  .hero{min-height:760px}
+  .hero-sticky{min-height:760px}
   .hero-content{padding-bottom:7vh}
   .hero-trees-far{height:40%}
   .hero-trees-near{height:30%}

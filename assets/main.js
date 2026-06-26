@@ -113,54 +113,90 @@
   }
 
   function initParallax() {
-    const far = document.querySelector(".hero-trees-far");
-    const near = document.querySelector(".hero-trees-near");
-    const figure = document.querySelector(".hero-figure-wrap");
-    const heroContent = document.querySelector(".hero-content");
+    const hero = document.querySelector(".hero");
     const heroTitle = document.querySelector(".hero-title");
     const cards = document.querySelectorAll(".lib-card, .cost-card, .diff-card");
 
-    const MAX_STRETCH = 3.0; // peak vertical scale of the wordmark
-    const BASE_SHIFT = 0.15; // matches the .hero-content rest offset (15vh)
-    if (heroTitle) {
-      heroTitle.style.transformOrigin = "center bottom";
-      heroTitle.style.willChange = "transform";
-    }
+    // ---------------------------------------------------------------
+    // Scroll-driven wordmark choreography (rAF-smoothed for buttery motion):
+    //   Phase A (P 0->0.5): bottom anchored, top stretches up to the upper bound.
+    //   Phase B (P 0.5->1): top anchored at the upper bound, bottom compresses
+    //                       back so the title returns to its natural size.
+    //   P>=1 (released): the sticky unsticks and the normal title scrolls away.
+    // Poisson physics: stretching vertically thins the glyphs horizontally
+    //   (scaleX = 1/sqrt(scaleY)), so the letters narrow as they elongate.
+    // ---------------------------------------------------------------
+    let restTop = 0, H0 = 0, pinRange = 1, upperTop = 0;
 
-    function onScroll() {
-      const y = window.scrollY;
+    function measure() {
+      if (!heroTitle || !hero) return;
+      const prev = heroTitle.style.transform;
+      heroTitle.style.transform = "none";
+      const r = heroTitle.getBoundingClientRect();
+      heroTitle.style.transform = prev;
       const vh = window.innerHeight;
-      if (y <= vh * 1.2) {
-        // Trees lag behind the scroll so the wordmark cinematically lifts
-        // out of the forest; near band lags most for depth, candle sinks slow.
-        if (far) far.style.transform = `translateY(${y * 0.22}px)`;
-        if (near) near.style.transform = `translateY(${y * 0.40}px)`;
-        if (figure) figure.style.transform = `translateY(${y * 0.10}px)`;
-      }
-      // Pin the hero content while the wordmark stretches vertically (origin at
-      // its bottom edge), then release so the stretched title scrolls away.
-      // Pure function of scrollY, so scroll-up reverses the stretch smoothly.
-      if (heroContent && heroTitle) {
-        const pinEnd = vh * 0.32; // pin ends just as the thesis starts to appear
-        const p = Math.min(1, y / pinEnd);
-        // Phase 1 [0..pinEnd]: hold the content on screen while the title stretches.
-        // Phase 2 (pinEnd..2*pinEnd]: ease the hold back to 0 so the stretched
-        // title rejoins natural scroll and exits cleanly without crowding the thesis.
-        const pin = y <= pinEnd ? y : Math.max(0, 2 * pinEnd - y);
-        heroContent.style.transform = `translateY(${BASE_SHIFT * vh + pin}px)`;
-        heroTitle.style.transform = `scaleY(${1 + p * (MAX_STRETCH - 1)})`;
-      }
-      cards.forEach((card) => {
-        const rect = card.getBoundingClientRect();
-        if (rect.top < vh && rect.bottom > 0) {
-          const shift = (rect.top - vh / 2) * 0.05;
-          card.style.transform = `translateY(${shift}px)`;
-        }
-      });
+      restTop = r.top;                                  // on-screen top while pinned
+      H0 = r.height;
+      upperTop = vh * 0.07;                             // top edge at full stretch
+      pinRange = hero.getBoundingClientRect().height - vh; // sticky pin distance
     }
 
-    window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
+    const easeInOut = (t) =>
+      t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+    let curP = 0;
+
+    function applyTitle(P) {
+      if (!heroTitle || H0 <= 0) return;
+      const B0 = restTop + H0;
+      let top, bot;
+      if (P <= 0.5) {
+        const ps = easeInOut(P / 0.5);
+        top = restTop + (upperTop - restTop) * ps;     // bottom anchored, top rises
+        bot = B0;
+      } else {
+        const pc = easeInOut((P - 0.5) / 0.5);
+        top = upperTop;                                 // top anchored
+        bot = B0 + (upperTop + H0 - B0) * pc;           // bottom compresses up
+      }
+      const sy = Math.max(0.001, (bot - top) / H0);
+      const sx = 1 / Math.sqrt(sy);                     // volume-preserving thinning
+      const ty = top - restTop;
+      heroTitle.style.transform = `translate3d(0,${ty}px,0) scale(${sx},${sy})`;
+    }
+
+    function frame() {
+      const targetP =
+        pinRange > 0 ? Math.max(0, Math.min(1, window.scrollY / pinRange)) : 0;
+      curP += (targetP - curP) * 0.1;                   // buttery glide toward target
+      if (Math.abs(targetP - curP) < 0.0002) curP = targetP;
+      applyTitle(curP);
+      requestAnimationFrame(frame);
+    }
+
+    if (heroTitle && hero) {
+      heroTitle.style.transformOrigin = "50% 0%";
+      heroTitle.style.willChange = "transform";
+      heroTitle.style.backfaceVisibility = "hidden";
+      measure();
+      window.addEventListener("resize", measure);
+      requestAnimationFrame(frame);
+    }
+
+    // ---- card parallax (lower sections) ----
+    window.addEventListener(
+      "scroll",
+      () => {
+        const vh = window.innerHeight;
+        cards.forEach((card) => {
+          const rect = card.getBoundingClientRect();
+          if (rect.top < vh && rect.bottom > 0) {
+            const shift = (rect.top - vh / 2) * 0.05;
+            card.style.transform = `translateY(${shift}px)`;
+          }
+        });
+      },
+      { passive: true }
+    );
   }
 
   function initLightning() {
