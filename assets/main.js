@@ -129,14 +129,30 @@
     // Poisson physics: stretching vertically thins the glyphs horizontally
     //   (scaleX = 1/sqrt(scaleY)), so the letters narrow as they elongate.
     // ---------------------------------------------------------------
+    // Split the wordmark into per-character inline-block spans so the physics is
+    // applied to each glyph independently (each thins about its OWN centre).
+    // Transforms are visual-only and don't reflow, so letters thin in place with
+    // no horizontal bunching — unlike scaling the whole word toward one centre.
+    const charSpans = [];
+    if (heroTitle) {
+      const text = heroTitle.textContent;
+      heroTitle.textContent = "";
+      for (const ch of text) {
+        const s = document.createElement("span");
+        s.className = "hero-ch";
+        s.textContent = ch;
+        if (ch === " ") s.style.whiteSpace = "pre";
+        heroTitle.appendChild(s);
+        charSpans.push(s);
+      }
+    }
+
     let restTop = 0, H0 = 0, pinRange = 1, upperTop = 0;
 
     function measure() {
       if (!heroTitle || !hero) return;
-      const prev = heroTitle.style.transform;
-      heroTitle.style.transform = "none";
+      charSpans.forEach((s) => (s.style.transform = "none"));
       const r = heroTitle.getBoundingClientRect();
-      heroTitle.style.transform = prev;
       const vh = window.innerHeight;
       restTop = r.top;                                  // on-screen top while pinned
       H0 = r.height;
@@ -149,7 +165,7 @@
     let curP = 0;
 
     function applyTitle(P) {
-      if (!heroTitle || H0 <= 0) return;
+      if (!charSpans.length || H0 <= 0) return;
       const B0 = restTop + H0;
       let top, bot;
       if (P <= 0.5) {
@@ -164,7 +180,10 @@
       const sy = Math.max(0.001, (bot - top) / H0);
       const sx = 1 / Math.sqrt(sy);                     // volume-preserving thinning
       const ty = top - restTop;
-      heroTitle.style.transform = `translate3d(0,${ty}px,0) scale(${sx},${sy})`;
+      // Same vertical motion for every glyph (they share the line); scaleX thins
+      // each about its own centre via transform-origin 50% 0% (see .hero-ch).
+      const tf = `translate3d(0,${ty}px,0) scale(${sx},${sy})`;
+      for (const s of charSpans) s.style.transform = tf;
     }
 
     function frame() {
@@ -182,10 +201,7 @@
       requestAnimationFrame(frame);
     }
 
-    if (heroTitle && hero) {
-      heroTitle.style.transformOrigin = "50% 0%";
-      heroTitle.style.willChange = "transform";
-      heroTitle.style.backfaceVisibility = "hidden";
+    if (charSpans.length && hero) {
       measure();
       window.addEventListener("resize", measure);
       requestAnimationFrame(frame);
