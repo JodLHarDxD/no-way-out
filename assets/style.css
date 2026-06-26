@@ -28,7 +28,7 @@
   --cycle-warmth: 0.1;
   --cycle-brightness: 0;
   --cycle-hue-shift: 220;
-  --sky-tint: rgba(140,33,24,0.06);
+  --sky-tint: rgba(82,108,168,0.07);
 }
 
 /* Phase-scoped palette shifts (subtle) */
@@ -55,7 +55,7 @@ body[data-cycle-phase="lockdown"] {
   --ash: color-mix(in srgb, #7b7464 90%, #5a5448 10%);
 }
 body[data-cycle-phase="night"] {
-  --void:#050506; --ink:#0a0a0d;
+  --void:#060609; --ink:#0d0e15;
 }
 
 body {
@@ -204,3 +204,32 @@ h1:hover, h2:hover, h3:hover, h4:hover { color: var(--yellow-hot); }
 
 /* focus visibility */
 a:focus-visible,button:focus-visible{outline:2px solid var(--yellow);outline-offset:3px}
+
+/* ---------- dev cycle panel (localhost or ?dev only) ---------- */
+.cyc-dev{
+  position:fixed;left:18px;bottom:18px;z-index:300;width:232px;
+  font-family:'Mono',monospace;color:var(--bone2);
+  background:rgba(8,8,12,.82);border:1px solid var(--line2);
+  backdrop-filter:blur(8px);border-radius:4px;overflow:hidden;
+  box-shadow:0 8px 30px rgba(0,0,0,.5);
+}
+.cyc-dev-head{display:flex;align-items:center;justify-content:space-between;
+  padding:8px 10px;border-bottom:1px solid var(--line)}
+.cyc-dev-title{font-size:9.5px;letter-spacing:.22em;color:var(--bone)}
+.cyc-dev-min{background:none;border:none;color:var(--bone2);cursor:pointer;font-size:15px;line-height:1;padding:0 5px}
+.cyc-dev-body{padding:10px;display:flex;flex-direction:column;gap:9px}
+.cyc-dev.collapsed .cyc-dev-body{display:none}
+.cyc-dev-phases{display:flex;flex-wrap:wrap;gap:5px}
+.cyc-dev-phases button{
+  flex:1 0 auto;font-family:'Mono';font-size:9px;letter-spacing:.06em;text-transform:uppercase;
+  padding:6px 7px;border:1px solid var(--line2);background:transparent;color:var(--bone2);
+  cursor:pointer;border-radius:2px;transition:border-color .2s,color .2s,background .2s}
+.cyc-dev-phases button:hover{border-color:var(--yellow);color:var(--bone)}
+.cyc-dev-phases button.active{border-color:var(--yellow);background:rgba(230,183,60,.14);color:var(--yellow-hot)}
+.cyc-dev-slider{width:100%;accent-color:var(--yellow);cursor:pointer}
+.cyc-dev-readout{display:flex;justify-content:space-between;font-size:10px;color:var(--ash)}
+.cyc-dev-phase-now{color:var(--bone2);text-transform:uppercase;letter-spacing:.1em}
+.cyc-dev-pct{color:var(--bone2)}
+.cyc-dev-pause{font-family:'Mono';font-size:10px;letter-spacing:.1em;
+  padding:7px;border:1px solid var(--line2);background:transparent;color:var(--bone);cursor:pointer;border-radius:2px}
+.cyc-dev-pause.on{border-color:var(--yellow);color:var(--yellow)}

@@ -15,7 +15,7 @@
     scouting: { hue: 0, sat: 0, light: 0.06 },
     race:     { hue: 12, sat: 0.06, light: 0.03 },
     lockdown: { hue: -5, sat: -0.04, light: -0.02 },
-    night:    { hue: -12, sat: -0.06, light: -0.04 },
+    night:    { hue: -10, sat: 0.02, light: 0.085 },
   };
 
   let currentPhase = "night";
@@ -124,9 +124,11 @@
         const y = window.scrollY;
         const vh = window.innerHeight;
         if (y <= vh * 1.2) {
-          if (far) far.style.transform = `translateY(${y * 0.18}px)`;
-          if (near) near.style.transform = `translateY(${y * 0.32}px)`;
-          if (figure) figure.style.transform = `translateY(${y * 0.12}px)`;
+          // Trees lag behind the scroll so the wordmark cinematically lifts
+          // out of the forest; near band lags most for depth, candle sinks slow.
+          if (far) far.style.transform = `translateY(${y * 0.22}px)`;
+          if (near) near.style.transform = `translateY(${y * 0.40}px)`;
+          if (figure) figure.style.transform = `translateY(${y * 0.10}px)`;
         }
         cards.forEach((card) => {
           const rect = card.getBoundingClientRect();
@@ -254,6 +256,72 @@
       renderAllForests(currentPhase);
       renderAllStructures(currentPhase);
     });
+  }
+
+  // Manual day/night control for evaluating each phase's look.
+  // Auto-shows on localhost; on the live site add ?dev to the URL.
+  function initCycleDevPanel() {
+    const cyc = window.NWOAtmos && window.NWOAtmos.cycle;
+    if (!cyc) return;
+    const host = location.hostname;
+    const isLocal = host === "localhost" || host === "127.0.0.1" || host === "";
+    const wantDev = /\bdev\b/.test(location.search) || /\bdev\b/.test(location.hash);
+    if (!isLocal && !wantDev) return;
+
+    const phases = window.NWOAtmos.CYCLE_PHASES.map((p) => p.id);
+    const panel = document.createElement("div");
+    panel.className = "cyc-dev";
+    panel.innerHTML = `
+      <div class="cyc-dev-head">
+        <span class="cyc-dev-title">CYCLE · DEV</span>
+        <button class="cyc-dev-min" title="collapse">–</button>
+      </div>
+      <div class="cyc-dev-body">
+        <div class="cyc-dev-phases">
+          ${phases.map((p) => `<button data-phase="${p}">${p}</button>`).join("")}
+        </div>
+        <input class="cyc-dev-slider" type="range" min="0" max="1000" value="0" aria-label="cycle time">
+        <div class="cyc-dev-readout"><span class="cyc-dev-phase-now">night</span><span class="cyc-dev-pct">0%</span></div>
+        <button class="cyc-dev-pause">▶ play</button>
+      </div>`;
+    document.body.appendChild(panel);
+
+    const slider = panel.querySelector(".cyc-dev-slider");
+    const pctEl = panel.querySelector(".cyc-dev-pct");
+    const phaseNowEl = panel.querySelector(".cyc-dev-phase-now");
+    const pauseBtn = panel.querySelector(".cyc-dev-pause");
+    const phaseBtns = Array.from(panel.querySelectorAll("[data-phase]"));
+
+    function setPauseLabel() {
+      pauseBtn.textContent = cyc.paused ? "▶ play" : "❚❚ pause";
+      pauseBtn.classList.toggle("on", cyc.paused);
+    }
+    phaseBtns.forEach((btn) =>
+      btn.addEventListener("click", () => {
+        if (!cyc.paused) cyc.setPaused(true);
+        cyc.jumpToPhase(btn.dataset.phase);
+        setPauseLabel();
+      })
+    );
+    slider.addEventListener("input", () => {
+      if (!cyc.paused) cyc.setPaused(true);
+      cyc.jumpToProgress(slider.value / 1000);
+      setPauseLabel();
+    });
+    pauseBtn.addEventListener("click", () => { cyc.togglePaused(); setPauseLabel(); });
+    panel.querySelector(".cyc-dev-min").addEventListener("click", () =>
+      panel.classList.toggle("collapsed")
+    );
+
+    (function sync() {
+      const p = cyc.progress;
+      if (document.activeElement !== slider) slider.value = Math.round(p * 1000);
+      pctEl.textContent = Math.round(p * 100) + "%";
+      phaseNowEl.textContent = cyc.phase;
+      phaseBtns.forEach((b) => b.classList.toggle("active", b.dataset.phase === cyc.phase));
+      requestAnimationFrame(sync);
+    })();
+    setPauseLabel();
   }
 
   function initHoverEffects() {
@@ -400,6 +468,7 @@
     initParticles();
     initWatchGlow();
     initLivingCycle();
+    initCycleDevPanel();
     initHoverEffects();
     initMagneticCursor();
 

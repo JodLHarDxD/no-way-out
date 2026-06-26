@@ -448,13 +448,53 @@ function startSectionStorm(sectionEl, opts = {}) {
 class CycleController {
   constructor(opts = {}) {
     this.duration = opts.duration ?? CYCLE_DURATION_MS;
-    this.startTime = performance.now();
-    this.phase = "dawn";
-    this.progress = 0;
+    // Open the site in the cool navy "night" palette (matches the hero key art).
+    // Booting at "dawn" tinted the opening murky green, so offset the start clock
+    // to begin partway through the cycle at the requested phase.
+    const startPhase = opts.startPhase ?? "night";
+    const startProgress = this._phaseStartProgress(startPhase);
+    this.startTime = performance.now() - this.duration * startProgress;
+    this.phase = startPhase;
+    this.progress = startProgress;
+    this.paused = false;
+    this._hold = null; // when set, cycle is frozen at this progress (manual eval)
     this._tick = this._tick.bind(this);
     this._updateLoopItems = this._updateLoopItems.bind(this);
     requestAnimationFrame(this._tick);
   }
+
+  _phaseStartProgress(phase) {
+    let acc = 0;
+    for (const ph of CYCLE_PHASES) {
+      if (ph.id === phase) return acc;
+      acc += ph.frac;
+    }
+    return 0;
+  }
+
+  // ---- manual controls (dev eval) ----
+  jumpToProgress(p) {
+    p = Math.max(0, Math.min(0.9999, p));
+    this.progress = p;
+    this.startTime = performance.now() - this.duration * p;
+    if (this.paused) this._hold = p;
+  }
+
+  jumpToPhase(id) {
+    this.jumpToProgress(this._phaseStartProgress(id) + 0.0002);
+  }
+
+  setPaused(v) {
+    this.paused = !!v;
+    if (this.paused) {
+      this._hold = this.progress;
+    } else {
+      this.startTime = performance.now() - this.duration * this.progress;
+      this._hold = null;
+    }
+  }
+
+  togglePaused() { this.setPaused(!this.paused); return this.paused; }
 
   _phaseAtProgress(p) {
     let acc = 0;
@@ -481,7 +521,7 @@ class CycleController {
       scouting: { warmth: 0.45, brightness: 0.18, hue: 40, sky: "rgba(123,116,100,0.06)" },
       race:     { warmth: 0.85, brightness: 0.14, hue: 45, sky: "rgba(202,160,51,0.07)" },
       lockdown: { warmth: 0.25, brightness: 0.06, hue: 30, sky: "rgba(90,82,64,0.09)" },
-      night:    { warmth: 0.1, brightness: 0, hue: 220, sky: "rgba(140,33,24,0.06)" },
+      night:    { warmth: 0.1, brightness: 0, hue: 220, sky: "rgba(82,108,168,0.07)" },
     };
     return tokens[phase] || tokens.night;
   }
@@ -491,8 +531,12 @@ class CycleController {
   }
 
   _tick(now) {
-    const elapsed = (now - this.startTime) % this.duration;
-    this.progress = elapsed / this.duration;
+    if (this._hold == null) {
+      const elapsed = (now - this.startTime) % this.duration;
+      this.progress = elapsed / this.duration;
+    } else {
+      this.progress = this._hold;
+    }
     const phase = this._phaseAtProgress(this.progress);
     const local = this._phaseProgress(this.progress);
     const prevPhase = this.phase;
