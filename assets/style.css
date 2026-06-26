@@ -166,22 +166,6 @@ h1:hover, h2:hover, h3:hover, h4:hover { color: var(--yellow-hot); }
 .reveal{opacity:0;transform:translateY(36px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
 .reveal.in{opacity:1;transform:translateY(0)}
 
-/* lightning shake effect */
-@keyframes nwo-shake {
-  0% { transform: translate(0,0); }
-  10% { transform: translate(-2px,-2px); }
-  20% { transform: translate(2px,1px); }
-  30% { transform: translate(-1px,2px); }
-  40% { transform: translate(1px,-1px); }
-  50% { transform: translate(-2px,1px); }
-  60% { transform: translate(2px,2px); }
-  70% { transform: translate(-1px,-2px); }
-  80% { transform: translate(1px,1px); }
-  90% { transform: translate(-2px,-1px); }
-  100% { transform: translate(0,0); }
-}
-.lightning-shake { animation: nwo-shake 0.4s cubic-bezier(.36,.07,.19,.97) both; }
-
 /* floating animation */
 @keyframes nwo-float {
   0%, 100% { transform: translateY(0); }

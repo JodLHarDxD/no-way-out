@@ -247,7 +247,6 @@
         minMs: 22000, maxMs: 45000,
         color: "rgba(244,210,104,0.75)",
         boltColor: "#f4d268",
-        shake: false,
       });
     }
 
@@ -291,7 +290,6 @@
         minMs: 40000, maxMs: 70000,
         color: "rgba(184,57,42,0.55)",
         boltColor: "#c44a3a",
-        shake: false,
         onlyPhases: ["night", "lockdown"],
       });
     }

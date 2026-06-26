@@ -275,31 +275,65 @@ class RainField {
   }
 }
 
-function generateBoltPath(w, h, startX) {
-  const sx = startX ?? w * (0.3 + Math.random() * 0.4);
-  const points = [{ x: sx, y: 0 }];
-  const branches = [];
-  let x = sx;
-  let y = 0;
-  const segments = 6 + Math.floor(Math.random() * 5);
-  for (let i = 0; i < segments; i++) {
-    y += (h / segments) * (0.7 + Math.random() * 0.5);
-    x += (Math.random() - 0.5) * w * 0.12;
-    const px = x;
-    const py = Math.min(y, h * 0.85);
-    points.push({ x: px, y: py });
-    if (Math.random() > 0.55 && i < segments - 2) {
-      branches.push({
-        x1: px, y1: py,
-        x2: px + (Math.random() - 0.5) * 60,
-        y2: py + 20 + Math.random() * 40,
-      });
-    }
+function makeFork(x, y, dir, w, h) {
+  // a short, jagged offshoot that veers down-and-out from the main channel
+  const pts = [{ x, y }];
+  const n = 3 + Math.floor(Math.random() * 3);
+  let cx = x;
+  let cy = y;
+  for (let i = 0; i < n; i++) {
+    cy += h * 0.035 * (0.6 + Math.random() * 0.9);
+    cx += dir * w * 0.025 * (0.6 + Math.random()) + (Math.random() - 0.5) * w * 0.015;
+    pts.push({ x: cx, y: cy });
   }
-  return { points, branches };
+  return pts;
 }
 
-function drawLightningBolt(el, color = "#f4e8a0") {
+function generateBoltPath(w, h, startX) {
+  const sx = startX ?? w * (0.35 + Math.random() * 0.3);
+  const points = [{ x: sx, y: 0 }];
+  const forks = [];
+  let x = sx;
+  let y = 0;
+  const segments = 12 + Math.floor(Math.random() * 8); // finer = more natural jag
+  const maxY = h * 0.9;
+  for (let i = 0; i < segments; i++) {
+    y += (maxY / segments) * (0.7 + Math.random() * 0.6);
+    x += (Math.random() - 0.5) * w * 0.07;
+    x = Math.max(w * 0.05, Math.min(w * 0.95, x));
+    const py = Math.min(y, maxY);
+    points.push({ x, y: py });
+    // forks spread through the upper/middle channel, never near the tail
+    if (Math.random() > 0.62 && i > 1 && i < segments - 2) {
+      const dir = Math.random() < 0.5 ? -1 : 1;
+      forks.push(makeFork(x, py, dir, w, h));
+    }
+  }
+  return { points, forks };
+}
+
+function pathFromPoints(pts) {
+  let d = `M ${pts[0].x.toFixed(1)} ${pts[0].y.toFixed(1)}`;
+  for (let i = 1; i < pts.length; i++) {
+    d += ` L ${pts[i].x.toFixed(1)} ${pts[i].y.toFixed(1)}`;
+  }
+  return d;
+}
+
+function makeStroke(d, { stroke, width, opacity, blur }) {
+  const p = document.createElementNS("http://www.w3.org/2000/svg", "path");
+  p.setAttribute("d", d);
+  p.setAttribute("fill", "none");
+  p.setAttribute("stroke", stroke);
+  p.setAttribute("stroke-width", String(width));
+  p.setAttribute("stroke-linecap", "round");
+  p.setAttribute("stroke-linejoin", "round");
+  p.setAttribute("opacity", String(opacity));
+  if (blur) p.style.filter = `blur(${blur}px)`;
+  return p;
+}
+
+function drawLightningBolt(el, color = "#f4e8a0", startX) {
   const rect = el.getBoundingClientRect();
   const w = rect.width;
   const h = rect.height;
@@ -307,83 +341,77 @@ function drawLightningBolt(el, color = "#f4e8a0") {
 
   const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
   svg.setAttribute("viewBox", `0 0 ${w} ${h}`);
-  svg.style.cssText = "position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:28;overflow:visible;";
+  svg.setAttribute("preserveAspectRatio", "none");
+  svg.style.cssText = "position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:28;overflow:visible;opacity:0;will-change:opacity;";
 
-  const { points, branches } = generateBoltPath(w, h);
-  let d = `M ${points[0].x} ${points[0].y}`;
-  for (let i = 1; i < points.length; i++) {
-    d += ` L ${points[i].x} ${points[i].y}`;
-  }
+  const { points, forks } = generateBoltPath(w, h, startX);
+  const d = pathFromPoints(points);
 
-  const glow = document.createElementNS("http://www.w3.org/2000/svg", "path");
-  glow.setAttribute("d", d);
-  glow.setAttribute("fill", "none");
-  glow.setAttribute("stroke", color);
-  glow.setAttribute("stroke-width", "6");
-  glow.setAttribute("stroke-linecap", "round");
-  glow.setAttribute("opacity", "0.35");
-  glow.setAttribute("filter", "blur(4px)");
+  // main channel layered: soft outer bloom -> colored glow -> blue-white -> white-hot core
+  svg.appendChild(makeStroke(d, { stroke: color, width: 16, opacity: 0.10, blur: 9 }));
+  svg.appendChild(makeStroke(d, { stroke: color, width: 6, opacity: 0.45, blur: 3 }));
+  svg.appendChild(makeStroke(d, { stroke: "#cfe3ff", width: 2.6, opacity: 0.9, blur: 0.6 }));
+  svg.appendChild(makeStroke(d, { stroke: "#ffffff", width: 1.3, opacity: 1, blur: 0 }));
 
-  const core = document.createElementNS("http://www.w3.org/2000/svg", "path");
-  core.setAttribute("d", d);
-  core.setAttribute("fill", "none");
-  core.setAttribute("stroke", "#fff");
-  core.setAttribute("stroke-width", "1.5");
-  core.setAttribute("stroke-linecap", "round");
-
-  svg.appendChild(glow);
-  svg.appendChild(core);
-
-  for (const b of branches) {
-    const branch = document.createElementNS("http://www.w3.org/2000/svg", "line");
-    branch.setAttribute("x1", String(b.x1));
-    branch.setAttribute("y1", String(b.y1));
-    branch.setAttribute("x2", String(b.x2));
-    branch.setAttribute("y2", String(b.y2));
-    branch.setAttribute("stroke", color);
-    branch.setAttribute("stroke-width", "1");
-    branch.setAttribute("opacity", "0.7");
-    svg.appendChild(branch);
+  // forks: dimmer + thinner so the eye still reads one dominant channel
+  for (const f of forks) {
+    const fd = pathFromPoints(f);
+    svg.appendChild(makeStroke(fd, { stroke: color, width: 3, opacity: 0.22, blur: 2 }));
+    svg.appendChild(makeStroke(fd, { stroke: "#eaf2ff", width: 1, opacity: 0.7, blur: 0 }));
   }
 
   el.style.position = el.style.position || "relative";
   el.appendChild(svg);
-  return svg;
+  return { el: svg, sx: points[0].x / w };
 }
 
-function lightningStrike(el, { color = "rgba(244,210,104,0.9)", boltColor = "#f4e8a0", duration = 900, shake = true, bolt = true } = {}) {
+function lightningStrike(el, { color = "rgba(244,210,104,0.9)", boltColor = "#f4e8a0", duration = 520, bolt = true } = {}) {
   let boltEl = null;
-  if (bolt) boltEl = drawLightningBolt(el, boltColor);
-
-  const flash = document.createElement("div");
-  flash.style.cssText = `position:absolute;inset:0;pointer-events:none;z-index:30;background:${color};opacity:0;mix-blend-mode:screen;`;
-  el.appendChild(flash);
-
-  if (shake) {
-    document.body.classList.add("lightning-shake");
-    setTimeout(() => document.body.classList.remove("lightning-shake"), 400);
+  let sxFrac = 0.5;
+  if (bolt) {
+    const b = drawLightningBolt(el, boltColor);
+    if (b) {
+      boltEl = b.el;
+      sxFrac = b.sx;
+    }
   }
 
-  const seq = [
-    { t: 0, o: 0 },
-    { t: 40, o: 0.95 },
-    { t: 90, o: 0.15 },
-    { t: 140, o: 0.8 },
-    { t: 220, o: 0 },
+  // illumination radiates from where the bolt enters the frame, not a flat wash
+  const flash = document.createElement("div");
+  const pct = (sxFrac * 100).toFixed(1);
+  flash.style.cssText = `position:absolute;inset:0;pointer-events:none;z-index:30;opacity:0;mix-blend-mode:screen;will-change:opacity;background:radial-gradient(160% 120% at ${pct}% -10%, ${color} 0%, ${color} 12%, transparent 70%);`;
+  el.appendChild(flash);
+
+  // real strikes = multiple return strokes: instant attack, exponential decay, decreasing power
+  const strokes = [
+    { t: 0, peak: 1.0, decay: 55 },
+    { t: 60, peak: 0.45, decay: 35 },
+    { t: 115, peak: 0.75, decay: 60 },
+    { t: 210, peak: 0.30, decay: 45 },
   ];
+  const attack = 9;
+  function envelope(e) {
+    let sum = 0;
+    let mx = 0;
+    for (const s of strokes) {
+      if (e < s.t) continue;
+      const dt = e - s.t;
+      const v = dt < attack ? s.peak * (dt / attack) : s.peak * Math.exp(-(dt - attack) / s.decay);
+      sum += v;
+      if (v > mx) mx = v;
+    }
+    // flash sums (additive light); bolt tracks the strongest active stroke so it flickers then dies
+    return { flash: Math.min(1, sum), bolt: Math.min(1, mx * 1.25) };
+  }
+
   let start = null;
   function step(ts) {
-    if (!start) start = ts;
-    const elapsed = ts - start;
-    let o = 0;
-    for (let i = 0; i < seq.length - 1; i++) {
-      if (elapsed >= seq[i].t && elapsed <= seq[i + 1].t) {
-        const f = (elapsed - seq[i].t) / (seq[i + 1].t - seq[i].t);
-        o = seq[i].o + (seq[i + 1].o - seq[i].o) * f;
-      }
-    }
-    flash.style.opacity = o;
-    if (elapsed < duration) requestAnimationFrame(step);
+    if (start === null) start = ts;
+    const e = ts - start;
+    const env = envelope(e);
+    flash.style.opacity = env.flash.toFixed(3);
+    if (boltEl) boltEl.style.opacity = env.bolt.toFixed(3);
+    if (e < duration) requestAnimationFrame(step);
     else {
       flash.remove();
       if (boltEl) boltEl.remove();
@@ -407,7 +435,6 @@ function startSectionStorm(sectionEl, opts = {}) {
     maxMs = 35000,
     color = "rgba(244,210,104,0.9)",
     boltColor = "#f4e8a0",
-    shake = true,
     onlyPhases = null,
     initialDelay = 8000,
   } = opts;
@@ -429,7 +456,7 @@ function startSectionStorm(sectionEl, opts = {}) {
     const phase = getPhase();
     if (!onlyPhases || onlyPhases.includes(phase)) {
       const visible = sectionEl.getBoundingClientRect().bottom > 0 && sectionEl.getBoundingClientRect().top < window.innerHeight;
-      if (visible) lightningStrike(sectionEl, { color, boltColor, shake });
+      if (visible) lightningStrike(sectionEl, { color, boltColor });
     }
     schedule();
   }
