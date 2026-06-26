@@ -30,17 +30,17 @@
   background-size:100% 120%;
   animation:nwo-breathe 10s ease-in-out infinite;
 }
+/* fade tops (crowns dissolve into sky, no hard clip at canvas edge) AND bottoms
+   (forest melts into the next section) so the forest reads as one continuous scene */
 .hero-trees-far{position:absolute;left:0;right:0;bottom:0;width:100%;height:66%;z-index:2;opacity:.82;
-  -webkit-mask-image:linear-gradient(to bottom,#000 68%,transparent 100%);mask-image:linear-gradient(to bottom,#000 68%,transparent 100%)}
-/* near band extends below the hero and fades out, so the forest melts into the
-   next section instead of hard-cutting at the boundary (one continuous scene) */
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 14%,#000 68%,transparent 100%);mask-image:linear-gradient(to bottom,transparent 0,#000 14%,#000 68%,transparent 100%)}
 .hero-trees-near{position:absolute;left:0;right:0;bottom:-7vh;width:100%;height:59%;z-index:4;
-  -webkit-mask-image:linear-gradient(to bottom,#000 56%,transparent 100%);mask-image:linear-gradient(to bottom,#000 56%,transparent 100%)}
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 16%,#000 56%,transparent 100%);mask-image:linear-gradient(to bottom,transparent 0,#000 16%,#000 56%,transparent 100%)}
 .hero-particles{position:absolute;inset:0;width:100%;height:100%;z-index:3;pointer-events:none}
 .hero-figure-wrap{position:absolute;z-index:5;pointer-events:none;transition:filter 1.4s ease}
 .hero-glow{position:absolute;border-radius:50%;background:radial-gradient(circle,var(--yellow-glow),transparent 70%);pointer-events:none;z-index:3}
 
-.hero-content{position:relative;z-index:10;padding:0 7vw;text-align:center;transform:translateY(9vh)}
+.hero-content{position:relative;z-index:10;padding:0 7vw;text-align:center;transform:translateY(15vh)}
 .hero-kicker{font-family:'Label';font-weight:300;font-size:13px;letter-spacing:1.1em;color:var(--bone2);
   padding-left:1.1em;opacity:0;animation:hfade 1.2s var(--ease) .4s forwards}
 .hero-title{
