@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>No Way Out — Design Dossier | Full Game Design Document</title>
+<meta name="description" content="The complete design dossier for No Way Out — a FROM-inspired psychological horror and social-deduction game where epistemology is the win condition. Pillars, the three-way war, the knowledge system, the Man in Yellow, and difficulty as epistemic scaffolding.">
+<meta name="keywords" content="No Way Out design document, No Way Out game design, psychological horror game design, epistemic horror, social deduction horror, FROM inspired game, the Man in Yellow, fraud chain, vision states, asymmetric horror">
+<meta name="author" content="JodLx Studio — Hriddhish Ranjan Sarkar">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<meta name="theme-color" content="#0a0a0d">
+<meta name="color-scheme" content="dark">
+<link rel="canonical" href="https://nowayout.jodlx.in/dossier.html">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="No Way Out">
+<meta property="og:title" content="No Way Out — The Design Dossier">
+<meta property="og:description" content="The complete design of No Way Out: an epistemic gauntlet wearing the skin of a horror game. Pillars, the three-way war, the Man in Yellow, difficulty as scaffolding.">
+<meta property="og:url" content="https://nowayout.jodlx.in/dossier.html">
+<meta property="og:image" content="https://nowayout.jodlx.in/assets/og-image.png">
+<meta property="og:image:width" content="1918">
+<meta property="og:image:height" content="1078">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@har_ddy">
+<meta name="twitter:creator" content="@har_ddy">
+<meta name="twitter:title" content="No Way Out — The Design Dossier">
+<meta name="twitter:description" content="The complete design of No Way Out: an epistemic gauntlet wearing the skin of a horror game.">
+<meta name="twitter:image" content="https://nowayout.jodlx.in/assets/og-image.png">
+
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/og-image.png">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://nowayout.jodlx.in/" },
+        { "@type": "ListItem", "position": 2, "name": "Design Dossier", "item": "https://nowayout.jodlx.in/dossier.html" }
+      ]
+    },
+    {
+      "@type": "Article",
+      "headline": "No Way Out — The Design Dossier",
+      "description": "The complete public design document for No Way Out: an asymmetric psychological horror and social-deduction game where discerning truth under social pressure is the win condition.",
+      "image": "https://nowayout.jodlx.in/assets/og-image.png",
+      "author": { "@type": "Person", "name": "Hriddhish Ranjan Sarkar", "url": "https://portfolio.jodlx.in/" },
+      "publisher": { "@type": "Organization", "name": "JodLx Studio", "url": "https://nowayout.jodlx.in/" },
+      "mainEntityOfPage": "https://nowayout.jodlx.in/dossier.html",
+      "about": { "@type": "VideoGame", "name": "No Way Out", "url": "https://nowayout.jodlx.in/" },
+      "articleSection": ["Design pillars", "The three-way war", "The knowledge system", "Threat architecture", "Difficulty"],
+      "inLanguage": "en"
+    }
+  ]
+}
+</script>
+
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/sections.css">
+<link rel="stylesheet" href="assets/pages.css">
+</head>
+<body data-cycle-phase="night">
+
+<div class="grain"></div>
+<div class="vignette-fixed"></div>
+<div class="corner-frame tl"></div><div class="corner-frame tr"></div>
+<div class="corner-frame bl"></div><div class="corner-frame br"></div>
+
+<nav class="nav">
+  <a class="nav-mark" href="index.html">NO WAY OUT</a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="game.html">The Game</a>
+    <a href="dossier.html">Dossier</a>
+    <a href="podcast.html">Deep Dive</a>
+    <a href="faq.html">FAQ</a>
+  </div>
+</nav>
+
+<main class="page-main">
+  <nav class="crumbs" aria-label="Breadcrumb">
+    <a href="index.html">Home</a><span class="sep">/</span><span>Design Dossier</span>
+  </nav>
+
+  <div class="page-kicker">Core Blueprint</div>
+  <h1 class="page-title">The Design Dossier</h1>
+  <p class="page-lede"><b>No Way Out</b> is not a horror game with puzzles in it. It is
+    <span class="hl">an epistemic gauntlet wearing the skin of a horror game</span> — a simulation of what it
+    actually costs to find truth in a world where some information is real, some is hallucinated, some is
+    fraudulent, the most dangerous kind is <em>mostly true</em>, and the most confident-sounding source may be the
+    thing trying to destroy you.</p>
+  <div class="classified">Project No Way Out · Core Design Document</div>
+
+  <div class="dossier-toc">
+    <div class="toc-k">Contents</div>
+    <ol>
+      <li><a href="#thesis"><span class="num">00</span>What this game is</a></li>
+      <li><a href="#intelligent"><span class="num">01</span>A game of intelligent people</a></li>
+      <li><a href="#pillars"><span class="num">02</span>Design pillars</a></li>
+      <li><a href="#war"><span class="num">03</span>The three-way war</a></li>
+      <li><a href="#knowledge"><span class="num">04</span>The knowledge system</a></li>
+      <li><a href="#trees"><span class="num">05</span>The faraway trees</a></li>
+      <li><a href="#strong"><span class="num">06</span>The strong player</a></li>
+      <li><a href="#cost"><span class="num">07</span>The cost of knowledge</a></li>
+      <li><a href="#threat"><span class="num">08</span>The threat architecture</a></li>
+      <li><a href="#loop"><span class="num">09</span>The 24-hour loop</a></li>
+      <li><a href="#systems"><span class="num">10</span>Mechanical systems</a></li>
+      <li><a href="#victory"><span class="num">11</span>Victory conditions</a></li>
+      <li><a href="#difficulty"><span class="num">12</span>Difficulty architecture</a></li>
+      <li><a href="#restated"><span class="num">13</span>The thesis, restated</a></li>
+    </ol>
+  </div>
+
+  <div class="page-rule"></div>
+
+  <article class="prose">
+    <h2 id="thesis">00 — What this game is</h2>
+    <p>Every other survival-horror game is a test of <b>reflexes and resource management</b>. No Way Out is a test of
+      <b>epistemology under social pressure</b>. The real question it asks is not "can you survive the night?" It is:</p>
+    <blockquote>Can a group of people extract truth from noise — while the noise is actively lying to them, while
+      their own perceptions are unreliable, and while the most trustworthy person among them may be the thing trying to
+      kill them?</blockquote>
+    <p>Survival is the surface. Pattern recognition is the game. <b>Discernment is the win condition.</b> The town has
+      run this cycle before — many times. The laws governing it are consistent, but the board state is never identical,
+      like chess. There is always a correct line of play. It just never looks the same twice, and it always hides inside
+      apparent chaos until someone strong enough sees through it.</p>
+
+    <h2 id="intelligent">01 — A game of intelligent people</h2>
+    <p>Players are not only <em>allowed</em> to use real-world knowledge — they are <em>expected</em> to. Search
+      engines, encyclopedias, LLMs, translation tools, cryptography references; nothing is off the table. The long-term
+      clues are deliberately built to push a player out of the game and into the real world to find out what something
+      <em>is</em> — then back into the game to reason about what it <em>means here</em>.</p>
+    <p>This produces a difficulty curve with a hard floor and no ceiling. The <b>floor</b> is survival knowledge: any
+      attentive player can read the plain clues, lock the doors, and last the night. The <b>ceiling</b> is epistemic
+      mastery: using every tool available while trusting none of them absolutely, reasoning correctly under social
+      pressure, and knowing that your own confidence is the entry point for the fraud. There is no ceiling, because
+      intelligence has no ceiling.</p>
+    <h3>The LLM as a fraud-chain vector</h3>
+    <p>The tools players bring carry their own poison. Feed a long-term clue to an LLM and it returns a confident,
+      coherent, beautifully structured answer — except LLMs hallucinate confidently, can be subtly wrong about history,
+      and produce plausible falsehoods in the exact tone of truth. A subtly-incorrect key, mapped onto tonight's cycle,
+      produces a <b>fraud chain</b> that feels like genuine progress until the terminal link — at which point the
+      safehouse barriers silently fail. The game teaches correct use of intelligence tools by punishing incorrect use.</p>
+
+    <h2 id="pillars">02 — Design pillars</h2>
+    <div class="card-grid">
+      <div class="feature-card"><div class="fc-num">PILLAR I</div><h3>Asymmetric Reality</h3>
+        <p>The engine refuses a uniform world-state across clients. Artifacts, unverified flora, and low sanity shift
+          individuals into segregated vision states — one player sees phantoms and objectives; the rest see nothing.
+          Reality validation is shifted onto the players.</p></div>
+      <div class="feature-card"><div class="fc-num">PILLAR II</div><h3>The Economy of the Bet</h3>
+        <p>Safe default loops are rejected. Turtling triggers a slow bleed — resources decay, defenses weaken, night
+          threats scale. Inaction guarantees termination, so players are forced to accept high-stakes bets just to hold
+          equilibrium.</p></div>
+      <div class="feature-card"><div class="fc-num">PILLAR III</div><h3>Information Asymmetry</h3>
+        <p>Knowledge is scarce, physical, and local — bound to specific characters at specific times. High-tier escape
+          objectives are zero-sum, breeding factions, hoarding, and active misdirection.</p></div>
+      <div class="feature-card"><div class="fc-num">PILLAR IV</div><h3>Discernment as Power</h3>
+        <p>Strength is not combat or stats — it is the capacity to read which clues are genuine, which players are
+          genuine, and what the current cycle is asking. The strongest player is a human lie-detector.</p></div>
+      <div class="feature-card blood"><div class="fc-num">PILLAR V</div><h3>The Threat Is Already Inside</h3>
+        <p>The thing most likely to destroy the group is not the monster outside the wall. It is the beautiful,
+          compelling, perfectly-timed person inside it.</p></div>
+    </div>
+
+    <h2 id="war">03 — The three-way war</h2>
+    <p>Most horror is two-sided: humans versus the threat. No Way Out is <b>triangular</b>. Players want escape and the
+      truth. The <b>Town</b> wants freedom from the creatures. The <b>Creatures</b> want containment and feeding.
+      Players and the town are natural allies — but they cannot communicate directly; the town can only nudge.</p>
+    <h3>The town is a trapped ally</h3>
+    <p>The town is not a neutral map — it is a fellow prisoner, trapped longer than any survivor. It cannot speak; it can
+      only <b>reduce friction</b> when players move toward the correct pattern. The critical rule: <b>the town never
+      grants safety, only assistance.</b> Move toward the right pattern and a stuck door opens, a creature is distracted,
+      daylight stretches. Move toward the wrong one and the town simply <em>withdraws</em> — neutral, not hostile. The
+      danger signal is the town going quiet; the progress signal is the town leaning in.</p>
+    <p>Assistance is proximity-based: aligned strong players receive signs; anyone standing near them is caught in the
+      assistance radius; weak players alone receive nothing — not wrong signs, <em>silence</em>. Weak players need
+      strong players just to witness anything, which hands the strong player nearly all the leverage in the group.</p>
+
+    <h2 id="knowledge">04 — The knowledge system</h2>
+    <h3>The pattern is fluid — chess, not a cipher</h3>
+    <p>There is no fixed correct sequence to memorize. The pattern is emergent: the underlying laws are constant across
+      cycles, but the instance is unique every time. This kills the speedrun problem — you cannot publish "the solution"
+      because there isn't one, only principles that transfer, the way chess principles transfer without any two games
+      being identical.</p>
+    <h3>Scripture is case law</h3>
+    <p>The town has cycled before, and <b>scripture is the archaeological record of previous cycles</b> — scattered,
+      ambiguous, partially contradictory. You are never finding <em>the</em> answer; you are finding what worked under
+      conditions like these, and conditions are never identical. Reading scripture is interpretation, not lookup.</p>
+    <h3>Three kinds of clue</h3>
+    <ul>
+      <li><b>Genuine</b> — correct info, right person, right time.</li>
+      <li><b>Hallucination</b> — feels real and internally consistent, but leads nowhere or loops. The holder is not
+        dangerous, just lost.</li>
+      <li><b>Fraud</b> — feels real, leads somewhere, and that somewhere is a trap. The holder may not know they're
+        compromised.</li>
+    </ul>
+    <p>The holder cannot self-verify — they experienced it; it felt real. Verification comes only from cross-referencing
+      against other players who received clues in the same window and against scripture from prior cycles. The core skill
+      is <b>clue arbitration under social pressure</b>: who convinces the group their clue is real?</p>
+    <h3>The key is real; the mapping is fluid</h3>
+    <p>Every ARG shares one failure mode — a fixed cipher is thrilling exactly once, then it's posted to a wiki and
+      solved forever. No Way Out separates the lookup from the meaning. The <b>key</b> is Googleable and solved once
+      ("the dots are 1, 1, 2, 3, 5 — Fibonacci"). The <b>mapping</b> is never solved: Fibonacci of <em>what</em> — the
+      trees, the time windows, the order characters receive clues? The start and target are set by this cycle's board
+      state. The real-world knowledge is the tool; the cycle is the lock; the tool fits a different lock every time. A
+      finite repertoire of ~30–50 deep keys recombines into infinite cycles.</p>
+
+    <h2 id="trees">05 — The faraway trees</h2>
+    <p>The trees are the physical path to scripture, and they run on <b>two independent gates</b> with completely
+      different risk profiles. Conflating them is the most common fatal mistake.</p>
+    <ul>
+      <li><b>The entry pattern (survival gate)</b> — how you pass through a tree. Correct entry means you live,
+        regardless of which tree; wrong entry means death or stuck. This is the life-or-death variable, and it transfers
+        across cycles.</li>
+      <li><b>Tree selection (answer gate)</b> — which tree actually holds scripture. This changes per cycle. Correct
+        entry + wrong tree means alive but empty-handed; correct entry + right tree means scripture. It's a time gamble,
+        not a life gamble — <em>if</em> you know the entry pattern.</li>
+    </ul>
+    <p>You die in the trees only when you don't know how to pass through them. Brute-forcing tree selection is
+      mathematically viable, but its risk is set entirely by the clock: safe at 09:00, a dangerous bet by 15:00, and
+      potentially fatal near 18:00 — not because the tree kills you, but because night catches you outside. Morning
+      discipline buys afternoon optionality buys night survival. Scripture confirmation is never binary: finding one is a
+      hypothesis, two narrows it, three gives actionable confidence.</p>
+
+    <h2 id="strong">06 — The strong player</h2>
+    <p>No one spawns strong. Strength is a dynamic state earned by demonstrated pattern literacy — and it can be lost by
+      wrong moves. The strong player's power is <b>discernment</b>, not command: they read not only the town's signs but
+      <em>through people</em>, distinguishing genuine clue-holders from the lost and the compromised. To outsiders they
+      look cold and calculating — trusting people others distrust, dismissing people others believe. That dissonance is
+      the cost of clarity.</p>
+    <h3>The leadership paradox</h3>
+    <p>Knowing who holds what is useless if acting on it openly destroys cohesion — a public accusation detonates the
+      group. So the strong player leads through <b>indirection</b>: subtle redirection, strategic proximity curation,
+      feeding genuine holders better questions rather than answers, and letting fraud chains exhaust themselves. The most
+      valuable skill is not fighting or exploring — it is curating who is allowed near you, and who is quietly kept at
+      distance, without ever saying why.</p>
+
+    <h2 id="cost">07 — The cost of knowledge</h2>
+    <p>Sight is not free, and the cost is emotional and social, not mechanical. The more pattern-visible a strong player
+      becomes, the more the entities target their closest proximity — not the player, their <em>people</em>. Killing an
+      aligned strong player is hard; <b>breaking</b> them is easy.</p>
+    <ul>
+      <li><b>The Trusted Fool</b> — a close ally believes a hallucination completely and is about to walk into the trees
+        alone at dusk, begging you to follow.</li>
+      <li><b>The Turned Ally</b> — the most devastating. Someone genuine all session is found at night and fed a
+        fraud-chain clue. Their prior history makes them maximally trusted. Turned at 02:00, they hand you the final
+        escape piece at 05:00 — and it feels completely real.</li>
+      <li><b>The Sacrifice Trap</b> — the correct line requires letting a close ally walk into danger. The town signals
+        GO. Choose: the pattern, or the person.</li>
+    </ul>
+    <p>The result is a character arc every session, not a leaderboard time: clarity, then the first loss, then a clear
+      pattern surrounded by the absence of the people who helped you find it.</p>
+
+    <h2 id="threat">08 — The threat architecture</h2>
+    <p>Two separate threat types, two separate defense systems — never confused for each other, and secretly working in
+      sequence.</p>
+    <div class="card-grid">
+      <div class="feature-card blood"><div class="fc-num">PHYSICAL</div><h3>Night Creatures (FROM canon)</h3>
+        <p>Terrifying, inhuman, nocturnal, talisman-gated. They mimic player voices at the door and kill without
+          hesitation. No ambiguity — once you see one, you know. A pure physical survival problem.</p></div>
+      <div class="feature-card"><div class="fc-num">PSYCHOLOGICAL</div><h3>The Man in Yellow</h3>
+        <p>Not a monster — a person. Beautiful, charismatic, the figure everyone wants near them. A psychological
+          survival problem with no talisman, because no one identifies the threat.</p></div>
+    </div>
+    <h3>He is a countermeasure, not an ambient NPC</h3>
+    <p>The keystone mechanic: the Man in Yellow is <b>not present at session start.</b> He enters as a targeted response
+      the moment a strong player emerges and is recognized as strong — by themselves and by one or two others. The system
+      registers a genuine threat to its integrity, and he walks into town.</p>
+    <h3>He enters fully briefed</h3>
+    <p>He does not infiltrate blind. Because he felt the town respond, he knows what the strong player found and arrives
+      calibrated to that exact group's understanding. He speaks their language, holds their next-needed piece, and feels
+      more present and genuinely interested than any real survivor. He gives small, <em>accurate</em> crumbs — he knows
+      the cycle, so he can afford real truth — builds genuine-feeling relationships, becomes indispensable, then at the
+      victory window collapses everything from inside, already trusted, already holding a key role.</p>
+    <h3>The one tell</h3>
+    <p>There is exactly one crack: the town never actively assists him. Around everyone else there are nudges, doors,
+      small mercies. Around him, alone in a space, the town goes completely <b>neutral</b> — not hostile, not helpful,
+      just withdrawn. Plus his entry timing was wrong for a normal arrival: not at session start, but precisely after
+      the strong player emerged. Both tells are easy to miss and socially impossible to act on without proof. Act on
+      instinct and you lose the group's trust; wait for proof and you lose the window.</p>
+    <h3>The hidden coordination</h3>
+    <p>The two threats are not independent. The night creatures don't just kill — they manufacture the desperation that
+      makes the Man in Yellow irresistible by morning. Players never realize it was coordinated.</p>
+
+    <h2 id="loop">09 — The 24-hour loop</h2>
+    <p>Daytime allocation dictates night survival. The clock is the primary antagonist.</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Window</th><th>Phase</th><th>What happens</th></tr></thead>
+      <tbody>
+        <tr><td><b>06:00–09:00</b></td><td>Dawn &amp; Casualty Assessment</td><td>Barriers disengage; assess integrity, distribute medical assets, pool intelligence gathered in the dark. The prime bootstrap-leak window via dawn dreams.</td></tr>
+        <tr><td><b>09:00–15:00</b></td><td>Scouting &amp; Factions</td><td>Disperse across sectors; competing bets surface; sub-teams open secret channels. The safest window to attempt the trees.</td></tr>
+        <tr><td><b>15:00–18:00</b></td><td>The Factuality Race</td><td>Hard deadline to cross-reference clues against lore and anomalies. Brute force turns dangerous.</td></tr>
+        <tr><td><b>18:00–20:00</b></td><td>The Lockdown Dilemma</td><td>One fortress or split safehouses? Trust breaks down along lines of suspicion.</td></tr>
+        <tr><td><b>20:00–06:00</b></td><td>Nighttime Lockdown</td><td>Proximity voice becomes hazardous as entities mimic player audio outside the barriers. The desperation factory for the Man in Yellow.</td></tr>
+      </tbody>
+    </table></div>
+
+    <h2 id="systems">10 — Mechanical systems</h2>
+    <h3>The fraud chain</h3>
+    <p>Genuine progression and fraud traps look identical until the terminal link. Both begin with the same journal
+      pointing to the same comms terminal; both reward the same high-tier fuel; both request a satellite realignment. On
+      the genuine path, that realignment unlocks permanent mapping to the Lighthouse. On the fraud chain, it silently
+      drops the safehouse talisman frequencies — and the barriers fail at midnight, spawning entities <em>inside</em>.
+      The pattern is the only thing that tells them apart in advance.</p>
+    <h3>Proximity audio mimicry</h3>
+    <p>3D proximity chat captures localized vocal frequencies by day. At night, entity AI replays distressed fragments
+      of your teammates' voices outside doors and windows, targeting the isolated and the trusting. When an entity speaks
+      in your bonded partner's exact tone, insisting it's dying outside the door, the game stops being a coordination
+      test and becomes a brutal evaluation of emotional discipline. This is why talk cannot be the verification layer —
+      if voices can be faked, the pattern, and the town's unfakeable response, become the cross-check.</p>
+    <h3>Vision states &amp; the slow bleed</h3>
+    <p>Vision states are private, high-fidelity experiences — phantoms, altered geography, explicit objectives —
+      invisible to everyone else, and each can be genuine, a hallucination loop, or a fraud lure. Pattern literacy is
+      what separates them. Meanwhile the slow bleed punishes isolationism structurally: permanent turtling decays
+      resources, weakens defense, and scales night aggression until equilibrium is impossible without action.</p>
+
+    <h2 id="victory">11 — Victory conditions</h2>
+    <p>No mechanical compromise, no survival-timer win. A session ends only when the group fully commits to one of two
+      extreme macro-bets.</p>
+    <ul>
+      <li><b>The Exodus</b> — decode the structural map: gather coordinates from deep vision states, sacrifice ancient
+        artifacts at landmarks (radio tower, lighthouse), and map volatile teleportation vectors. The activation window
+        demands absolute synchronization and typically forces permanent destruction of remaining defenses — failure
+        mid-execution wipes the team instantly.</li>
+      <li><b>The Purge</b> — shift from survival to warfare: track the entities to their diurnal resting chambers
+        beneath the subterranean layers, harvest biological anomalies into weaponry, and raid the core nesting grounds
+        to purge the predatory code. And the Man in Yellow holds a key role inside that raid.</li>
+    </ul>
+
+    <h2 id="difficulty">12 — Difficulty architecture</h2>
+    <p>The difficulty knob is <b>epistemic, not numerical.</b> In a game whose thesis is that intelligence is the win
+      condition, easy mode is not "monsters hit softer" — the night layer stays roughly as lethal across all modes. What
+      scales is <b>how much the game tells you what is true</b>: labels, confirmations, telegraphed fraud, loud town
+      signals, detectable tells.</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Axis</th><th>Easy · Guided</th><th>Medium · Contested</th><th>Real · Unmarked</th></tr></thead>
+      <tbody>
+        <tr><td><b>Clue labels</b></td><td>Survival vs pattern marked</td><td>Unmarked; tone hints</td><td>Nothing marked</td></tr>
+        <tr><td><b>Fraud</b></td><td>Rare, telegraphed</td><td>Balanced &amp; live</td><td>Maximal — and mostly true</td></tr>
+        <tr><td><b>Town signals</b></td><td>Loud; alignment obvious</td><td>Subtle but present</td><td>Near-imperceptible</td></tr>
+        <tr><td><b>Man in Yellow</b></td><td>Entry flagged; tell strong</td><td>Entry not flagged</td><td>Only entry-timing betrays him</td></tr>
+        <tr><td><b>Tool-trust trap</b></td><td>Off — wrong lookups harmless</td><td>Wrong output wastes time</td><td>Full — fraud chains kill</td></tr>
+        <tr><td><b>Confirmation</b></td><td>Generous</td><td>Minimal</td><td>None, ever — like reality</td></tr>
+      </tbody>
+    </table></div>
+    <p>It is called <b>Real</b> because it removes precisely what reality never provides: labels, confirmations, and
+      honest sources. The veteran who assumes last cycle's mapping still holds dies of his own confidence.</p>
+
+    <h2 id="restated">13 — The thesis, restated</h2>
+    <p>The town is a trapped ally who can only whisper. The pattern is hidden in noise, fluid as chess, always solvable.
+      The scripture is case law from cycles that came before. The trees are two gates — one for your life, one for the
+      truth. The strong player is discernment as power, clarity as a wound. The cost is the people you love, targeted
+      because you can see. The night is FROM's monsters, unchanged, manufacturing despair. And the Man in Yellow is the
+      thing you'll trust — summoned by your own strength, briefed by the town's own response, undetectable but for one
+      quiet tell.</p>
+    <p>Every layer attacks a different human system. Night fear attacks the survival instinct. Fraud chains attack
+      reasoning. Ally compromise attacks trust. The Man in Yellow attacks desire and connection itself. This is a game
+      that systematically dismantles every defense a human has — one layer at a time — and asks whether a group can still
+      find the truth anyway.</p>
+  </article>
+
+  <div class="page-cta">
+    <a href="podcast.html" class="btn">Listen to the Deep Dive</a>
+    <a href="faq.html" class="btn ghost">Read the FAQ</a>
+  </div>
+
+  <div class="related">
+    <a href="game.html"><span class="r-k">Shorter read</span><span class="r-t">What No Way Out Is</span></a>
+    <a href="podcast.html"><span class="r-k">38-min audio</span><span class="r-t">The Deep Dive</span></a>
+    <a href="index.html"><span class="r-k">Experience it</span><span class="r-t">The Home Page</span></a>
+  </div>
+</main>
+
+<footer>
+  <nav class="footer-socials" aria-label="Connect with the developer">
+    <a href="https://portfolio.jodlx.in/" target="_blank" rel="me noopener noreferrer" title="Portfolio" aria-label="Portfolio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.5 2.6 3.8 5.7 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.7-3.8-9S9.5 5.6 12 3z"/></svg></a>
+    <a href="https://github.com/JodLHarDxD/no-way-out" target="_blank" rel="me noopener noreferrer" title="GitHub" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M12 .5C5.73.5.5 5.74.5 12.02c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55v-2.02c-3.2.7-3.87-1.37-3.87-1.37-.52-1.33-1.28-1.68-1.28-1.68-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.2 1.77 1.2 1.03 1.77 2.7 1.26 3.36.97.1-.75.4-1.27.73-1.56-2.55-.29-5.23-1.28-5.23-5.7 0-1.26.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.62 1.59.23 2.76.11 3.05.74.8 1.18 1.82 1.18 3.08 0 4.43-2.69 5.4-5.25 5.69.41.36.77 1.06.77 2.14v3.17c0 .31.21.67.8.55A10.53 10.53 0 0 0 23.5 12.02C23.5 5.74 18.27.5 12 .5z"/></svg></a>
+    <a href="https://x.com/har_ddy" target="_blank" rel="me noopener noreferrer" title="X / Twitter" aria-label="X / Twitter"><svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+    <a href="https://www.instagram.com/jodlxhrs_/" target="_blank" rel="me noopener noreferrer" title="Instagram" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+    <a href="https://www.youtube.com/@JodLHrs" target="_blank" rel="me noopener noreferrer" title="YouTube" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M23.5 6.2a3.02 3.02 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.51A3.02 3.02 0 0 0 .5 6.2 31.5 31.5 0 0 0 0 12a31.5 31.5 0 0 0 .5 5.8 3.02 3.02 0 0 0 2.12 2.14c1.88.51 9.38.51 9.38.51s7.5 0 9.38-.51a3.02 3.02 0 0 0 2.12-2.14A31.5 31.5 0 0 0 24 12a31.5 31.5 0 0 0-.5-5.8zM9.55 15.57V8.43L15.82 12l-6.27 3.57z"/></svg></a>
+    <a href="https://www.reddit.com/user/JodlxHrs/" target="_blank" rel="me noopener noreferrer" title="Reddit" aria-label="Reddit"><svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M12 0C5.37 0 0 5.37 0 12c0 6.63 5.37 12 12 12s12-5.37 12-12C24 5.37 18.63 0 12 0zm5.01 13.47c.04.26.06.53.06.8 0 2.73-3.18 4.94-7.1 4.94s-7.1-2.21-7.1-4.94c0-.28.02-.55.07-.82a1.6 1.6 0 0 1-.92-1.45 1.6 1.6 0 0 1 2.72-1.15 7.83 7.83 0 0 1 4.21-1.33l.8-3.76 2.61.56a1.13 1.13 0 1 1 .14.56l-2.34-.5-.71 3.36a7.82 7.82 0 0 1 4.15 1.33 1.6 1.6 0 0 1 2.72 1.16c0 .63-.37 1.18-.92 1.43zM8.4 12.9a1.13 1.13 0 1 0 2.26 0 1.13 1.13 0 0 0-2.26 0zm6.32 2.86c-.74.74-2.27.8-2.72.8-.45 0-1.98-.06-2.72-.8a.3.3 0 0 0-.42.42c.93.93 2.72 1 3.14 1 .42 0 2.21-.07 3.14-1a.3.3 0 1 0-.42-.42zm-.34-1.73a1.13 1.13 0 1 0 0-2.26 1.13 1.13 0 0 0 0 2.26z"/></svg></a>
+    <a href="https://www.linkedin.com/in/hriddhish-ranjan-sarkar/" target="_blank" rel="me noopener noreferrer" title="LinkedIn" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.44-2.13 2.94v5.67H9.36V9.01h3.41v1.56h.05c.48-.9 1.65-1.85 3.39-1.85 3.62 0 4.29 2.38 4.29 5.48v6.25zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9.01h3.56v11.44z"/></svg></a>
+    <a href="mailto:jodl.hrs03@gmail.com" rel="me" title="Email" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></a>
+    <span class="footer-disc">discord — j1dlmedeluxe</span>
+  </nav>
+  <span>Project No Way Out &middot; Design Dossier</span>
+  <span>Design Architect — Jodl &middot; <span style="color:var(--blood)">Strictly Confidential</span></span>
+</footer>
+
+</body>
+</html>

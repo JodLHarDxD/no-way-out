@@ -38,6 +38,23 @@
 .prose ul li{position:relative;padding-left:26px;margin-top:.7em}
 .prose ul li::before{content:"";position:absolute;left:4px;top:.62em;width:6px;height:6px;background:var(--yellow);transform:rotate(45deg);opacity:.8}
 .prose blockquote{border-left:2px solid var(--blood);padding:6px 0 6px 26px;margin:1.6em 0;font-style:italic;color:var(--bone);font-size:1.05em}
+.prose .table-wrap{overflow-x:auto;margin:1.5em 0}
+.prose table{width:100%;border-collapse:collapse;font-family:'Crimson',serif;font-size:15px;min-width:520px}
+.prose th,.prose td{border:1px solid var(--line2);padding:10px 14px;text-align:left;vertical-align:top;line-height:1.5}
+.prose th{font-family:'Label';font-weight:500;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--yellow);background:rgba(255,255,255,.025)}
+.prose td b{color:var(--bone)}
+
+/* classified tag + section index for the dossier */
+.classified{display:inline-flex;align-items:center;gap:10px;font-family:'Mono';font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--blood);border:1px solid rgba(184,57,42,.4);padding:6px 12px;margin-top:18px}
+.classified::before{content:"";width:6px;height:6px;background:var(--blood);border-radius:50%}
+.dossier-toc{margin:34px 0 0;padding:24px 26px;border:1px solid var(--line2);background:rgba(255,255,255,.012)}
+.dossier-toc .toc-k{font-family:'Label';font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--ash);margin-bottom:14px}
+.dossier-toc ol{list-style:none;margin:0;padding:0;columns:2;column-gap:34px}
+.dossier-toc li{margin:0 0 9px;break-inside:avoid}
+.dossier-toc a{font-family:'Crimson',serif;font-size:15px;color:var(--bone2);transition:color .25s var(--ease)}
+.dossier-toc a:hover{color:var(--yellow)}
+.dossier-toc a .num{font-family:'Mono';font-size:11px;color:var(--yellow-deep);margin-right:10px}
+@media(max-width:640px){.dossier-toc ol{columns:1}}
 
 /* feature cards (game page pillars / threats) */
 .card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;margin-top:34px}
