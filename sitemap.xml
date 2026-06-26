@@ -12,4 +12,22 @@
       <image:caption>No Way Out wordmark over a dead forest at night.</image:caption>
     </image:image>
   </url>
+  <url>
+    <loc>https://nowayout.jodlx.in/game.html</loc>
+    <lastmod>2026-06-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://nowayout.jodlx.in/podcast.html</loc>
+    <lastmod>2026-06-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://nowayout.jodlx.in/faq.html</loc>
+    <lastmod>2026-06-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>
