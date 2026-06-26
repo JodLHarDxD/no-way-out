@@ -259,14 +259,13 @@
   }
 
   // Manual day/night control for evaluating each phase's look.
-  // Auto-shows on localhost; on the live site add ?dev to the URL.
+  // Local-only build-time preview tool — never shown on the live site.
   function initCycleDevPanel() {
     const cyc = window.NWOAtmos && window.NWOAtmos.cycle;
     if (!cyc) return;
     const host = location.hostname;
     const isLocal = host === "localhost" || host === "127.0.0.1" || host === "";
-    const wantDev = /\bdev\b/.test(location.search) || /\bdev\b/.test(location.hash);
-    if (!isLocal && !wantDev) return;
+    if (!isLocal) return;
 
     const phases = window.NWOAtmos.CYCLE_PHASES.map((p) => p.id);
     const panel = document.createElement("div");
