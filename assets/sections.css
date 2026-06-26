@@ -21,7 +21,7 @@
    the wordmark stretch/compress choreography, then releases to scroll away. */
 .hero{position:relative;z-index:2;height:190vh}
 .hero-sticky{
-  position:sticky;top:0;height:100svh;min-height:680px;overflow:hidden;
+  position:sticky;top:0;height:100svh;min-height:680px;overflow:visible;
   display:flex;flex-direction:column;justify-content:center;
   /* Exact "night" key art (page_01): cool blue-grey top glow → indigo mids → cool vignette */
   background:radial-gradient(130% 85% at 50% 5%,
