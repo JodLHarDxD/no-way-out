@@ -1,6 +1,5 @@
-.DS_Store
-Thumbs.db
-node_modules/
-*.log
-GAP_ANALYSIS_v2.md
-setup-git.bat
+# Confidential design docs — never publish
+GDDs/
+
+# Source art (not needed in repo)
+nwo/
