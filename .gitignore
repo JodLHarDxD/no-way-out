@@ -3,3 +3,8 @@ GDDs/
 
 # Source art (not needed in repo)
 nwo/
+
+# Internal analysis / planning notes — never publish
+GAP_ANALYSIS_v2.md
+*_ANALYSIS*.md
+*-analysis*.md
