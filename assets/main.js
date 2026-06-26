@@ -115,6 +115,9 @@
   function initParallax() {
     const hero = document.querySelector(".hero");
     const heroTitle = document.querySelector(".hero-title");
+    const far = document.querySelector(".hero-trees-far");
+    const near = document.querySelector(".hero-trees-near");
+    const figure = document.querySelector(".hero-figure-wrap");
     const cards = document.querySelectorAll(".lib-card, .cost-card, .diff-card");
 
     // ---------------------------------------------------------------
@@ -170,6 +173,12 @@
       curP += (targetP - curP) * 0.1;                   // buttery glide toward target
       if (Math.abs(targetP - curP) < 0.0002) curP = targetP;
       applyTitle(curP);
+      // Parallax the forest as you scroll through the pin: the trees sink (near
+      // band fastest for depth, candle slowest), same feel as the pre-sticky build.
+      const sink = curP * pinRange;
+      if (far) far.style.transform = `translate3d(0,${sink * 0.14}px,0)`;
+      if (near) near.style.transform = `translate3d(0,${sink * 0.26}px,0)`;
+      if (figure) figure.style.transform = `translate3d(0,${sink * 0.07}px,0)`;
       requestAnimationFrame(frame);
     }
 
