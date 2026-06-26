@@ -1,0 +1,26 @@
+{
+  "name": "No Way Out — Asymmetric Psychological Horror",
+  "short_name": "No Way Out",
+  "description": "An asymmetric psychological horror and social-deduction thriller for PC. The town has run this cycle before. It will run it again.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0d",
+  "theme_color": "#0a0a0d",
+  "lang": "en",
+  "categories": ["games", "entertainment"],
+  "icons": [
+    {
+      "src": "/assets/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/og-image.png",
+      "sizes": "1918x1078",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

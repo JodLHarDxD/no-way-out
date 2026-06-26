@@ -390,6 +390,13 @@
 footer{position:relative;z-index:10;padding:5vh 7vw 4vh;display:flex;justify-content:space-between;
   font-family:'Label';font-size:10px;letter-spacing:.25em;color:var(--ash);text-transform:uppercase;flex-wrap:wrap;gap:10px}
 
+.footer-socials{flex-basis:100%;display:flex;flex-wrap:wrap;gap:18px;justify-content:center;align-items:center;margin-bottom:22px}
+.footer-socials a,.footer-socials .footer-disc-ic{color:var(--ash);display:inline-flex;align-items:center;
+  transition:color .25s var(--ease),transform .25s var(--ease)}
+.footer-socials a:hover{color:var(--yellow-hot);transform:translateY(-2px)}
+.footer-socials .footer-disc-ic{cursor:default}
+.footer-socials .footer-disc{font-family:'Mono';font-size:10px;letter-spacing:.1em;color:var(--ash);text-transform:none}
+
 /* ---------- global mobile section rhythm ---------- */
 @media(max-width:760px){
   .thesis,.war,.town,.library,.dream,.cost,.loop,.diff,.intercept{padding-top:9vh;padding-bottom:9vh}
