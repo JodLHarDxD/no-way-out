@@ -116,30 +116,51 @@
     const far = document.querySelector(".hero-trees-far");
     const near = document.querySelector(".hero-trees-near");
     const figure = document.querySelector(".hero-figure-wrap");
+    const heroContent = document.querySelector(".hero-content");
+    const heroTitle = document.querySelector(".hero-title");
     const cards = document.querySelectorAll(".lib-card, .cost-card, .diff-card");
 
-    window.addEventListener(
-      "scroll",
-      () => {
-        const y = window.scrollY;
-        const vh = window.innerHeight;
-        if (y <= vh * 1.2) {
-          // Trees lag behind the scroll so the wordmark cinematically lifts
-          // out of the forest; near band lags most for depth, candle sinks slow.
-          if (far) far.style.transform = `translateY(${y * 0.22}px)`;
-          if (near) near.style.transform = `translateY(${y * 0.40}px)`;
-          if (figure) figure.style.transform = `translateY(${y * 0.10}px)`;
+    const MAX_STRETCH = 3.0; // peak vertical scale of the wordmark
+    const BASE_SHIFT = 0.15; // matches the .hero-content rest offset (15vh)
+    if (heroTitle) {
+      heroTitle.style.transformOrigin = "center bottom";
+      heroTitle.style.willChange = "transform";
+    }
+
+    function onScroll() {
+      const y = window.scrollY;
+      const vh = window.innerHeight;
+      if (y <= vh * 1.2) {
+        // Trees lag behind the scroll so the wordmark cinematically lifts
+        // out of the forest; near band lags most for depth, candle sinks slow.
+        if (far) far.style.transform = `translateY(${y * 0.22}px)`;
+        if (near) near.style.transform = `translateY(${y * 0.40}px)`;
+        if (figure) figure.style.transform = `translateY(${y * 0.10}px)`;
+      }
+      // Pin the hero content while the wordmark stretches vertically (origin at
+      // its bottom edge), then release so the stretched title scrolls away.
+      // Pure function of scrollY, so scroll-up reverses the stretch smoothly.
+      if (heroContent && heroTitle) {
+        const pinEnd = vh * 0.32; // pin ends just as the thesis starts to appear
+        const p = Math.min(1, y / pinEnd);
+        // Phase 1 [0..pinEnd]: hold the content on screen while the title stretches.
+        // Phase 2 (pinEnd..2*pinEnd]: ease the hold back to 0 so the stretched
+        // title rejoins natural scroll and exits cleanly without crowding the thesis.
+        const pin = y <= pinEnd ? y : Math.max(0, 2 * pinEnd - y);
+        heroContent.style.transform = `translateY(${BASE_SHIFT * vh + pin}px)`;
+        heroTitle.style.transform = `scaleY(${1 + p * (MAX_STRETCH - 1)})`;
+      }
+      cards.forEach((card) => {
+        const rect = card.getBoundingClientRect();
+        if (rect.top < vh && rect.bottom > 0) {
+          const shift = (rect.top - vh / 2) * 0.05;
+          card.style.transform = `translateY(${shift}px)`;
         }
-        cards.forEach((card) => {
-          const rect = card.getBoundingClientRect();
-          if (rect.top < vh && rect.bottom > 0) {
-            const shift = (rect.top - vh / 2) * 0.05;
-            card.style.transform = `translateY(${shift}px)`;
-          }
-        });
-      },
-      { passive: true }
-    );
+      });
+    }
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
   }
 
   function initLightning() {
